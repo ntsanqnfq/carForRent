@@ -2,7 +2,6 @@
 
 namespace Sang\CarForRent\Controller;
 
-use Sang\CarForRent\Bootstrap\Application;
 use Sang\CarForRent\Bootstrap\Controller;
 use Sang\CarForRent\Bootstrap\Request;
 
@@ -30,5 +29,10 @@ class SiteController extends Controller
         $body = $request->getBody();
         var_dump($body);
         die();
+    }
+
+    public function login(Request $request)
+    {
+        $body = $request->getBody();
     }
 }

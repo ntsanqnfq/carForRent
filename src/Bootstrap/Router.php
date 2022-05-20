@@ -80,4 +80,3 @@ class Router
         return ob_get_clean();
     }
 }
-

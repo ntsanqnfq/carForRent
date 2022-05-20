@@ -14,7 +14,10 @@ $app = new Application(dirname(__DIR__));
 
 $app->router->get('/', [new SiteController(), 'home']);
 $app->router->get('/contact', [new SiteController(), 'contact']);
-$app->router->post('/contact', [new LoginController(), 'handleLogin']);
+$app->router->post('/contact', [new SiteController(), 'handleContact']);
+$app->router->get('/login', [new LoginController(), 'login']);
+$app->router->post('/login', [new LoginController(), 'login']);
+
 
 $app->run();
 
