@@ -1,0 +1,16 @@
+{
+  "name": "sang/car-for-rent",
+  "autoload": {
+    "psr-4": {
+      "Sang\\CarForRent\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Sang\\tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  }
+}
