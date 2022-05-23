@@ -4,48 +4,75 @@ namespace Sang\CarForRent\Model;
 
 class UserModel
 {
-    private int $id;
-    private string $username;
-    private string $password;
-    private string $customerName;
+    private $id;
+    private $userName;
+    private $password;
+    private $customerName;
 
-    public function getId(): int
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
     {
         $this->id = $id;
     }
 
-    public function getUsername(): string
+    /**
+     * @return mixed
+     */
+    public function getUserName()
     {
-        return $this->username;
+        return $this->userName;
     }
 
-    public function setUsername(string $username): void
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName): void
     {
-        $this->username = $username;
+        $this->userName = $userName;
     }
 
-    public function getPassword(): string
+    /**
+     * @return mixed
+     */
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): void
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void
     {
         $this->password = $password;
     }
 
-    public function getCustomerName(): string
+    /**
+     * @return mixed
+     */
+    public function getCustomerName()
     {
         return $this->customerName;
     }
 
-    public function setCustomerName(string $customerName): void
+    /**
+     * @param mixed $customerName
+     */
+    public function setCustomerName($customerName): void
     {
         $this->customerName = $customerName;
     }
+
+
+
 }

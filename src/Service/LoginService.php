@@ -1,46 +1,40 @@
 <?php
+
 namespace Sang\CarForRent\Service;
 
-use Dotenv\Exception\ValidationException;
-use Sang\CarForRent\Bootstrap\Response;
-use Sang\CarForRent\Database\Database;
 use Sang\CarForRent\Model\UserModel;
-use Sang\CarForRent\Repository\UserRepository;
+use Sang\CarForRent\Repository\UserLoginRepository;
+use Sang\CarForRent\Request\UserRequest;
+use Sang\CarForRent\Validation\LoginValidate;
 
 class LoginService
 {
-    protected UserRepository $userRepository;
+    private UserLoginRepository $userLoginRepository;
+    private UserRequest $userRequest;
+    private UserModel $userModel;
 
-    public function __construct()
+    public function __construct(UserLoginRepository $userLoginRepository, UserRequest $userRequest, UserModel $userModel)
     {
-        $this->userRepository = new UserRepository(Database::getConnection());
+        $this->userLoginRepository = $userLoginRepository;
+        $this->userRequest = $userRequest;
+        $this->userModel= $userModel;
     }
 
-    public function login(UserModel $userInput)
+    public function login()
     {
+        LoginValidate::checkPassword($this->userRequest->getPassword());
+        LoginValidate::checkUserName($this->userRequest->getUserName());
 
-        $response = new Response();
-        $response->setUser($userInput->getUsername());
-        $existUser = $this->userRepository->findUserByName($userInput->getUsername());
-        $errorMessage = [];
-        if ($existUser == null) {
-            throw new ValidationException("Your account does not exist");
-        } else {
-            if (password_verify($userInput->getPassword(), $existUser->getPassword())) {
-                $response->setUser($existUser);
-                array_push($errorMessage, "Login Success");
-                $response->setMessage($errorMessage);
-                return $response;
-            } else {
-                throw new ValidationException("Username or Password is wrong");
-            }
-        }
+
+
+        $userData = $this->userLoginRepository->searchByUserName($this->userRequest->getUserName());
+        $this->userModel->setId($userData['id_customer']);
+        $this->userModel->setUserName($userData['username']);
+        $this->userModel->setCustomerName($userData['customer_name']);
+        var_dump($userData);
     }
 
-    private function validationLogin($request)
-    {
-        if (empty($request->username) || empty($request->password)) {
-            echo "Username or password cann't be empty";
-        }
+    public function getUser(){
+        return $this->userModel;
     }
 }
