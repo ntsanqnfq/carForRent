@@ -16,26 +16,36 @@ class Route
 
     protected string $actionName;
 
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param string $controllerClassName
+     * @param string $actionName
+     * @return void
+     */
     private function setRoute(string $method, string $uri, string $controllerClassName, string $actionName): void
     {
-        $this->method = $method ;
-        $this->uri  = $uri;
-        $this->controllerClassName  = $controllerClassName;
-        $this->actionName  = $actionName;
+        $this->method = $method;
+        $this->uri = $uri;
+        $this->controllerClassName = $controllerClassName;
+        $this->actionName = $actionName;
     }
 
+
+    /**
+     * @return void
+     */
     public function getRoute()
     {
         $routes = array(
-            array('GET','/',HomeController::class,'home'),
-            array('GET','/login',LoginController::class,'login'),
-            array('POST','/login',LoginController::class,'handleLogin')
+            array('GET', '/', HomeController::class, 'home'),
+            array('GET', '/login', LoginController::class, 'login'),
+            array('POST', '/login', LoginController::class, 'handleLogin'),
+            array('POST', '/contact', LoginController::class, 'contact')
         );
 
-        foreach ($routes as $route)
-        {
-            if($route[0] == Request::requestMethod() && $route[1] == Request::requestUri())
-            {
+        foreach ($routes as $route) {
+            if ($route[0] == Request::requestMethod() && $route[1] == Request::requestUri()) {
                 list($method, $uri, $controller, $action) = $route;
                 $this->setRoute($method, $uri, $controller, $action);
             }
@@ -73,7 +83,4 @@ class Route
     {
         $this->actionName = $actionName;
     }
-
-
-
 }

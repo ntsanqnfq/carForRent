@@ -14,7 +14,10 @@ class UserLoginRepository
         $this->connection = Database::getConnection();
     }
 
-
+    /**
+     * @param $userName
+     * @return mixed|void
+     */
     public function searchByUserName($userName)
     {
         $query = $this->connection->prepare("SELECT * FROM customer WHERE username = ? ");

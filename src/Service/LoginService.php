@@ -17,14 +17,17 @@ class LoginService
     {
         $this->userLoginRepository = $userLoginRepository;
         $this->userRequest = $userRequest;
-        $this->userModel= $userModel;
+        $this->userModel = $userModel;
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     */
     public function login()
     {
         LoginValidate::checkPassword($this->userRequest->getPassword());
         LoginValidate::checkUserName($this->userRequest->getUserName());
-
 
 
         $userData = $this->userLoginRepository->searchByUserName($this->userRequest->getUserName());
@@ -34,7 +37,11 @@ class LoginService
         var_dump($userData);
     }
 
-    public function getUser(){
+    /**
+     * @return UserModel
+     */
+    public function getUser()
+    {
         return $this->userModel;
     }
 }

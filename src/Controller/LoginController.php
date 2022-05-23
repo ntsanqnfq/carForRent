@@ -17,27 +17,23 @@ class LoginController
         $this->loginService = $loginService;
     }
 
+    /**
+     * @return void
+     */
     public function login(): void
     {
         View::render('login');
     }
 
-//    public function logout(): void
-//    {
-//        View::render('login');
-//        session_unset();
-//        session_destroy();
-//    }
-
+    /**
+     * @return void
+     */
     public function handleLogin(){
         $this->loginService->login();
-        //add session
         $_SESSION['username']= $this->loginService->getUser()->getUserName();
-        //render view
         View::render('home');
 
     }
 
 }
-
 

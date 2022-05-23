@@ -72,7 +72,4 @@ class UserModel
     {
         $this->customerName = $customerName;
     }
-
-
-
 }

@@ -12,6 +12,9 @@ class Database
     public static PDO $connection;
     protected static $dotenv;
 
+    /**
+     * @return PDO
+     */
     public static function getConnection(): PDO
     {
         $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
@@ -27,9 +30,7 @@ class Database
             try {
                 self::$connection = new PDO("mysql:host=$host;dbname=$database", $username, $password);
                 self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//                echo "Connected successfully";
             } catch (PDOException $e) {
-//                echo "Connection failed: " . $e->getMessage();
             }
         }
         return self::$connection;
