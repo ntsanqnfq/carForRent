@@ -2,22 +2,14 @@
 
 namespace Sang\CarForRent\Bootstrap;
 
+use Sang\CarForRent\App\View;
+
 class Controller
 {
-    public string $layout = 'main';
-
-    public function setLayOut($layout): void
-    {
-        $this->layout = $layout;
-    }
 
     public function render($view, $params = [])
     {
-        return Application::$app->router->renderView($view, $params);
+        return View::renderView($view, $params);
     }
 
-    public function redirect(string $url): void
-    {
-        header("location: $url");
-    }
 }

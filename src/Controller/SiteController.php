@@ -2,6 +2,7 @@
 
 namespace Sang\CarForRent\Controller;
 
+use Sang\CarForRent\App\View;
 use Sang\CarForRent\Bootstrap\Controller;
 use Sang\CarForRent\Bootstrap\Request;
 
@@ -12,7 +13,7 @@ class SiteController extends Controller
         $params = [
             'name' => 'NFQ ntsanq'
         ];
-        return $this->render('home', $params);
+        return View::renderView('home', $params);
     }
 
     public function contact()

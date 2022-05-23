@@ -2,81 +2,45 @@
 
 namespace Sang\CarForRent\Bootstrap;
 
+use Sang\CarForRent\App\View;
+
 class Router
 {
-    public Request $request;
-    public Response $response;
-    protected array $routes = [];
+    protected static array $routes = [];
 
-    /**
-     * @param Request $request
-     * @param Response $response
-     */
+    public static Request $request;
+
+    public static Response $response;
+
     public function __construct(Request $request, Response $response)
     {
-        $this->request = $request;
-        $this->response = $response;
+        static::$request = $request;
+        static::$response = $response;
     }
 
-    public function get($path, $callback)
+    public static function get($path, $callback): void
     {
-        $this->routes['get'][$path] = $callback;
+        static::$routes['GET'][$path] = $callback;
     }
 
-    public function post($path, $callback)
+    public static function post($path, $callback): void
     {
-        $this->routes['post'][$path] = $callback;
+        static::$routes['POST'][$path] = $callback;
     }
 
-    public function resolve()
+
+    public static function resolve()
     {
-        $path = $this->request->getPath();
-        $method = $this->request->getMethod();
-        $callback = $this->routes[$method][$path] ?? false;
+        $path = static::$request->getPath();
+        $method = static::$request->getMethod();
+        $callback = static::$routes[$method][$path] ?? false;
         if ($callback === false) {
-            $this->response->setStatusCode(404);
-            $layoutContent = $this->layoutContent();
-            $viewContent = $this->renderView("notfound");
-            return str_replace('{{content}}', $viewContent, $layoutContent);
+            static::$response->setStatusCode(404);
+            return View::renderView('notfound');
         }
-
         if (is_string($callback)) {
-            $layoutContent = $this->layoutContent();
-            $viewContent = $this->renderView($callback);
-            return str_replace('{{content}}', $viewContent, $layoutContent);
-
+            return View::renderView($callback);
         }
-
-        if (is_array($callback)) {
-            $callback[0] = new $callback[0]();
-        }
-
-
-        return call_user_func($callback, $this->request);
-    }
-
-    public function renderView($view, $params = [])
-    {
-        $layoutContent = $this->layoutContent();
-        $viewContent = $this->renderOnlyView($view, $params);
-        return str_replace('{{content}}', $viewContent, $layoutContent);
-    }
-
-    protected function renderOnlyView($view, $params)
-    {
-        foreach ($params as $key => $value) {
-            $$key = $value;
-        }
-
-        ob_start();
-        include_once Application::$ROOT_DIR . "/src/View/$view.php";
-        return ob_get_clean();
-    }
-
-    protected function layoutContent()
-    {
-        ob_start();
-        include_once Application::$ROOT_DIR . "/src/View/layouts/main.php";
-        return ob_get_clean();
+        return call_user_func($callback);
     }
 }
