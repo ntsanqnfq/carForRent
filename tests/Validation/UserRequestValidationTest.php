@@ -5,17 +5,20 @@ namespace Sang\tests\Validation;
 use PHPUnit\Framework\TestCase;
 use Sang\CarForRent\Validation\UserRequestValidation;
 
-/**
- * @dataProvider
- */
 class UserRequestValidationTest extends TestCase
 {
+    /**
+     * @dataProvider userRequestDataProvider
+     * @param $param
+     * @param $expected
+     * @return void
+     */
     public function testCheckUserNamePassword($param, $expected){
 
 
         $userRequest = new UserRequestValidation();
-        $userRequest->checkUserNamePassword($param);
-        $this->assertEquals($expected,$userRequest);
+        $result = $userRequest->checkUserNamePassword($param);
+        $this->assertEquals($expected,$result);
     }
 
     public function userRequestDataProvider(){

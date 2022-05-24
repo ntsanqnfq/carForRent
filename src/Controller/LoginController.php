@@ -2,9 +2,6 @@
 
 namespace Sang\CarForRent\Controller;
 
-
-use PDO;
-use Sang\CarForRent\App\Container;
 use Sang\CarForRent\App\View;
 use Sang\CarForRent\Request\UserRequest;
 use Sang\CarForRent\Service\LoginService;
@@ -16,6 +13,11 @@ class LoginController
     private UserRequest $userRequest;
     private UserRequestValidation $userRequestValidation;
 
+    /**
+     * @param LoginService $loginService
+     * @param UserRequest $userRequest
+     * @param UserRequestValidation $userRequestValidation
+     */
     public function __construct(LoginService $loginService, UserRequest $userRequest, UserRequestValidation $userRequestValidation)
     {
         $this->loginService = $loginService;
@@ -31,13 +33,16 @@ class LoginController
         View::render('login');
     }
 
+    /**
+     * @return void
+     */
     public function handleLogin()
     {
         //handle request
         $userRequest = $this->userRequest;
         // validation
         $validate = $this->userRequestValidation->checkUserNamePassword($userRequest); //check user request
-        if ($validate != []){
+        if (!empty($validate)) {
             View::render('login', $validate);
         }
         // use service for logging
@@ -48,10 +53,12 @@ class LoginController
 
     }
 
-    public function logout(){
+    /**
+     * @return void
+     */
+    public function logout()
+    {
         unset($_SESSION['username']);
         View::redirect('/');
     }
-
 }
-

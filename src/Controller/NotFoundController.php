@@ -6,7 +6,11 @@ use Sang\CarForRent\App\View;
 
 class NotFoundController
 {
-    public  function notFound(){
+    /**
+     * @return void
+     */
+    public function notFound()
+    {
         View::render('notfound');
     }
 }
