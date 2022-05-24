@@ -2,39 +2,39 @@
 
 namespace Sang\CarForRent\Service;
 
+use http\Client\Curl\User;
 use Sang\CarForRent\Model\UserModel;
 use Sang\CarForRent\Repository\UserLoginRepository;
-use Sang\CarForRent\Request\UserRequest;
-use Sang\CarForRent\Validation\LoginValidate;
+use Sang\CarForRent\Validation\UserLoginValidation;
+use Sang\CarForRent\Validation\UserRequestValidation;
 
 class LoginService
 {
     private UserLoginRepository $userLoginRepository;
-    private UserRequest $userRequest;
     private UserModel $userModel;
+    private UserLoginValidation $userLoginValidation;
 
-    public function __construct(UserLoginRepository $userLoginRepository, UserRequest $userRequest, UserModel $userModel)
+    public function __construct(UserLoginRepository $userLoginRepository, UserModel $userModel, UserLoginValidation $userLoginValidation)
     {
         $this->userLoginRepository = $userLoginRepository;
-        $this->userRequest = $userRequest;
         $this->userModel = $userModel;
+        $this->userLoginValidation = $userLoginValidation;
     }
 
     /**
      * @return void
      * @throws \Exception
      */
-    public function login()
+    public function login($userRequest): UserModel
     {
-        LoginValidate::checkPassword($this->userRequest->getPassword());
-        LoginValidate::checkUserName($this->userRequest->getUserName());
+        $userData = $this->userLoginRepository->searchByUserName($userRequest->getUserName());
 
+        $this->userLoginValidation->validate($userData,$userRequest);
 
-        $userData = $this->userLoginRepository->searchByUserName($this->userRequest->getUserName());
         $this->userModel->setId($userData['id_customer']);
         $this->userModel->setUserName($userData['username']);
         $this->userModel->setCustomerName($userData['customer_name']);
-        var_dump($userData);
+        return  $this->userModel;
     }
 
     /**

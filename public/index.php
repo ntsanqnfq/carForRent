@@ -1,6 +1,8 @@
 <?php
 
+session_start();
 use Sang\CarForRent\App\Application;
+
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');

@@ -28,6 +28,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="/login">Login</a>
             </li>
+            <li class="nav-item">
+                <form method="post" action="/logout">
+                    <button type="submit">log out</button>
+                </form>
+            </li>
     </div>
 </nav>
 

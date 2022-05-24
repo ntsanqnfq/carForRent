@@ -2,10 +2,13 @@
 
 namespace Sang\CarForRent\App;
 
+use ReflectionException;
+
 class Application
 {
+
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function start(): void
     {
