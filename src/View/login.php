@@ -17,9 +17,9 @@
                         <label class="form-label">Email address</label>
                         <input type="text" class="form-control form-control-lg" name="userName"/>
                         <?php
-                        if (array_key_exists('login_error', $validate)) {
+                        if (array_key_exists('login_error', $data)) {
                         echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-                            . $validate["login_error"] .
+                            . $data["login_error"] .
                             '</div>';
                         }
                         ?>
@@ -30,10 +30,10 @@
                         <label class="form-label">Password</label>
                         <input type="password" class="form-control form-control-lg" name="password"/>
                         <?php
-                        if (array_key_exists('login_error', $validate)) {
+                        if (array_key_exists('login_error', $data)) {
                             echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-                                    . $validate["login_error"] .
-                                    '</div>';
+                                . $data["login_error"] .
+                                '</div>';
                         }
                         ?>
                     </div>

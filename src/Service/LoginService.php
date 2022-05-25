@@ -26,25 +26,16 @@ class LoginService
 
     /**
      * @param $userRequest
-     * @return UserModel
+     * @return UserModel|bool
      */
-    public function login($userRequest): UserModel
+    public function login($userRequest): UserModel|bool
     {
         $userData = $this->userLoginRepository->searchByUserName($userRequest->getUserName());
-
-        $this->userLoginValidation->validate($userData, $userRequest);
-
-        $this->userModel->setId($userData->getId());
-        $this->userModel->setUserName($userData->getUserName());
-        $this->userModel->setCustomerName($userData->getCustomerName());
-        return $this->userModel;
+        if ($userData and password_verify($userRequest->getPassword(), $userData->getPassword())) {
+            return $userData;
+        }
+        return false;
     }
 
-    /**
-     * @return UserModel
-     */
-    public function getUser(): UserModel
-    {
-        return $this->userModel;
-    }
+
 }

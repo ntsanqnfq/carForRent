@@ -38,19 +38,23 @@ class LoginController
      */
     public function handleLogin()
     {
-        //handle request
+
         $userRequest = $this->userRequest;
-        // validation
-        $validate = $this->userRequestValidation->checkUserNamePassword($userRequest); //check user request
+
+        $validate = $this->userRequestValidation->checkUserNamePassword($userRequest);
         if (!empty($validate)) {
             View::render('login', $validate);
         }
-        // use service for logging
-        $user = $this->loginService->login($this->userRequest); // check database
-        // return view
-        $_SESSION['username'] = $this->loginService->getUser()->getUserName();
-        View::render('home');
 
+        $user = $this->loginService->login($this->userRequest);
+        if ($user) {
+            $_SESSION['username'] = $user->getUserName();
+            View::render('home');
+        } else {
+            View::render('login', [
+                'login_error' => 'user or password is incorrect'
+            ]);
+        }
     }
 
     /**
