@@ -58,11 +58,40 @@ class Route
     /**
      * @return string
      */
+    public function getMethod(): string
+    {
+        return $this->method;
+    }
+
+    /**
+     * @param string $method
+     */
+    public function setMethod(string $method): void
+    {
+        $this->method = $method;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUri(): string
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @param string $uri
+     */
+    public function setUri(string $uri): void
+    {
+        $this->uri = $uri;
+    }
+
+    /**
+     * @return string
+     */
     public function getControllerClassName(): string
     {
-        if (empty($this->controllerClassName)) {
-            return NotFoundController::class;
-        }
         return $this->controllerClassName;
     }
 
@@ -79,9 +108,6 @@ class Route
      */
     public function getActionName(): string
     {
-        if (empty($this->actionName)) {
-            return 'notFound';
-        }
         return $this->actionName;
     }
 
@@ -92,4 +118,6 @@ class Route
     {
         $this->actionName = $actionName;
     }
+
+
 }

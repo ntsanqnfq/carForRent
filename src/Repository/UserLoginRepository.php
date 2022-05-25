@@ -30,9 +30,13 @@ class UserLoginRepository
             if ($row = $query->fetch()) {
                 $this->userModel->setUserName($row['username']);
                 $this->userModel->setPassword($row['password']);
+                $this->userModel->setCustomerName($row['customer_name']);
+
                 return $this->userModel;
             }
-        } finally {
+        }
+        finally
+        {
             $query->closeCursor();
         }
     }

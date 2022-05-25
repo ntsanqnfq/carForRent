@@ -38,18 +38,16 @@ class LoginController
      */
     public function handleLogin()
     {
-
         $userRequest = $this->userRequest;
-
         $validate = $this->userRequestValidation->checkUserNamePassword($userRequest);
         if (!empty($validate)) {
             View::render('login', $validate);
         }
-
+        var_dump($validate);
         $user = $this->loginService->login($this->userRequest);
         if ($user) {
             $_SESSION['username'] = $user->getUserName();
-            View::render('home');
+            View::redirect('/');
         } else {
             View::render('login', [
                 'login_error' => 'user or password is incorrect'

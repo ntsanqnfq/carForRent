@@ -14,7 +14,7 @@ class UserRequest
     }
 
     /**
-     * @return mixed
+     * @return mixed|string
      */
     public function getUserName(): mixed
     {
@@ -22,10 +22,27 @@ class UserRequest
     }
 
     /**
-     * @return mixed
+     * @param mixed|string $userName
+     */
+    public function setUserName(mixed $userName): void
+    {
+        $this->userName = $userName;
+    }
+
+    /**
+     * @return mixed|string
      */
     public function getPassword(): mixed
     {
         return $this->password;
     }
+
+    /**
+     * @param mixed|string $password
+     */
+    public function setPassword(mixed $password): void
+    {
+        $this->password = $password;
+    }
+
 }
