@@ -24,7 +24,7 @@ class UserLoginRepository
     public function searchByUserName($userName)
     {
         $query = $this->connection->prepare("SELECT * FROM customer WHERE username = ? ");
-        $query->execute([$userName]);
+            $query->execute([$userName]);
 
         try {
             if ($row = $query->fetch()) {

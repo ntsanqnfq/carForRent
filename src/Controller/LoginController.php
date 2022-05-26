@@ -43,7 +43,6 @@ class LoginController
         if (!empty($validate)) {
             View::render('login', $validate);
         }
-        var_dump($validate);
         $user = $this->loginService->login($this->userRequest);
         if ($user) {
             $_SESSION['username'] = $user->getUserName();

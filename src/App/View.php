@@ -8,20 +8,22 @@ class View
     /**
      * @param $view
      * @param array $data
-     * @return void
+     * @return bool
      */
-    public static function render($view, array $data = []): void
+    public static function render($view, array $data = []): bool
     {
         require __DIR__ . "/../View/layouts/main.php";
         require __DIR__ . "/../View/" . $view . ".php";
+        return true;
     }
 
     /**
      * @param $url
-     * @return void
+     * @return bool
      */
-    public static function redirect($url): void
+    public static function redirect($url): bool
     {
         header("Location: $url");
+        return true;
     }
 }
