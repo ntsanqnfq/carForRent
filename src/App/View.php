@@ -12,8 +12,8 @@ class View
      */
     public static function render($view, array $data = []): bool
     {
-        require __DIR__ . "/../View/layouts/main.php";
-        require __DIR__ . "/../View/" . $view . ".php";
+        require_once __DIR__ . "/../View/layouts/main.php";
+        require_once __DIR__ . "/../View/" . $view . ".php";
         return true;
     }
 

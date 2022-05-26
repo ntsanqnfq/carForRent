@@ -4,15 +4,15 @@ namespace Sang\CarForRent\Model;
 
 class UserModel
 {
-    private $id;
-    private $userName;
-    private $password;
-    private $customerName;
+    private mixed $id;
+    private mixed $userName;
+    private mixed $password;
+    private mixed $customerName;
 
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId(): mixed
     {
         return $this->id;
     }
@@ -20,7 +20,7 @@ class UserModel
     /**
      * @param mixed $id
      */
-    public function setId($id): void
+    public function setId(mixed $id): void
     {
         $this->id = $id;
     }
@@ -28,7 +28,7 @@ class UserModel
     /**
      * @return mixed
      */
-    public function getUserName()
+    public function getUserName(): mixed
     {
         return $this->userName;
     }
@@ -36,7 +36,7 @@ class UserModel
     /**
      * @param mixed $userName
      */
-    public function setUserName($userName): void
+    public function setUserName(mixed $userName): void
     {
         $this->userName = $userName;
     }
@@ -44,7 +44,7 @@ class UserModel
     /**
      * @return mixed
      */
-    public function getPassword()
+    public function getPassword(): mixed
     {
         return $this->password;
     }
@@ -52,7 +52,7 @@ class UserModel
     /**
      * @param mixed $password
      */
-    public function setPassword($password): void
+    public function setPassword(mixed $password): void
     {
         $this->password = $password;
     }
@@ -60,7 +60,7 @@ class UserModel
     /**
      * @return mixed
      */
-    public function getCustomerName()
+    public function getCustomerName(): mixed
     {
         return $this->customerName;
     }
@@ -68,7 +68,7 @@ class UserModel
     /**
      * @param mixed $customerName
      */
-    public function setCustomerName($customerName): void
+    public function setCustomerName(mixed $customerName): void
     {
         $this->customerName = $customerName;
     }

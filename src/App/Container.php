@@ -15,7 +15,7 @@ class Container
      * @param $abstract
      * @param $concrete
      */
-    public function bind($abstract, $concrete = NULL)
+    public function bind($abstract, $concrete = NULL): void
     {
         if (is_null($concrete)) {
             $concrete = $abstract;
@@ -31,7 +31,7 @@ class Container
      * @return mixed|object
      * @throws ReflectionException
      */
-    public function make($abstract, array $parameters = [])
+    public function make($abstract, array $parameters = []): mixed
     {
         if (!isset($this->instances[$abstract])) {
             $this->bind($abstract);
@@ -53,8 +53,9 @@ class Container
      * @param $parameters
      * @return mixed|object
      * @throws ReflectionException
+     * @throws Exception
      */
-    protected function resolve($concrete, $parameters)
+    protected function resolve($concrete, $parameters): mixed
     {
         if ($concrete instanceof Closure) {
             return $concrete($this, $parameters);
@@ -63,7 +64,7 @@ class Container
         $reflector = new ReflectionClass($concrete);
 
         if (!$reflector->isInstantiable()) {
-            throw new Exception("Class {$concrete} is not instantiable");
+            throw new Exception("Class $concrete is not instantiable");
         }
 
         $constructor = $reflector->getConstructor();

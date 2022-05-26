@@ -13,12 +13,13 @@ class RouteTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testSetMethod($param, $expected){
+    public function testSetMethod($param, $expected): void
+    {
         $route = new Route();
         $route->setMethod($param['method']);
 
         $result = $route->getMethod();
-        $this->assertEquals($expected['method'],$result);
+        $this->assertEquals($expected['method'], $result);
     }
 
     /**
@@ -27,12 +28,13 @@ class RouteTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testGetMethod($param, $expected){
+    public function testGetMethod($param, $expected): void
+    {
         $route = new Route();
         $route->setActionName($param['method']);
 
         $result = $route->getActionName();
-        $this->assertEquals($expected['method'],$result);
+        $this->assertEquals($expected['method'], $result);
     }
 
     /**
@@ -41,12 +43,13 @@ class RouteTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testSetUri($param, $expected){
+    public function testSetUri($param, $expected): void
+    {
         $route = new Route();
         $route->setUri($param['uri']);
 
         $result = $route->getUri();
-        $this->assertEquals($expected['uri'],$result);
+        $this->assertEquals($expected['uri'], $result);
     }
 
     /**
@@ -55,12 +58,13 @@ class RouteTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testGetUri($param, $expected){
+    public function testGetUri($param, $expected)
+    {
         $route = new Route();
         $route->setUri($param['uri']);
 
         $result = $route->getUri();
-        $this->assertEquals($expected['uri'],$result);
+        $this->assertEquals($expected['uri'], $result);
     }
 
     /**
@@ -69,12 +73,13 @@ class RouteTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testSetControllerClassName($param, $expected){
+    public function testSetControllerClassName($param, $expected)
+    {
         $route = new Route();
         $route->setControllerClassName($param['controllerClassName']);
 
         $result = $route->getControllerClassName();
-        $this->assertEquals($expected['controllerClassName'],$result);
+        $this->assertEquals($expected['controllerClassName'], $result);
     }
 
     /**
@@ -83,33 +88,34 @@ class RouteTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testGetControllerClassName($param, $expected){
+    public function testGetControllerClassName($param, $expected)
+    {
         $route = new Route();
         $route->setControllerClassName($param['controllerClassName']);
 
         $result = $route->getControllerClassName();
-        $this->assertEquals($expected['controllerClassName'],$result);
+        $this->assertEquals($expected['controllerClassName'], $result);
     }
 
 
-
-    public function routeDataProvider(){
+    public function routeDataProvider()
+    {
         return [
-          'happycase'=>[
-              'param'=>[
-                  'method'=>'POST',
-                  'uri'=>'/login',
-                  'controllerClassName'=> 'LoginController::class',
-                  'actionName'=>'login'
-              ],
-              'expected'=>[
-                  'method'=>'POST',
-                  'uri'=>'/login',
-                  'controllerClassName'=> 'LoginController::class',
-                  'actionName'=>'login'
-              ]
+            'happycase' => [
+                'param' => [
+                    'method' => 'POST',
+                    'uri' => '/login',
+                    'controllerClassName' => 'LoginController::class',
+                    'actionName' => 'login'
+                ],
+                'expected' => [
+                    'method' => 'POST',
+                    'uri' => '/login',
+                    'controllerClassName' => 'LoginController::class',
+                    'actionName' => 'login'
+                ]
 
-          ]
+            ]
         ];
     }
 }

@@ -81,7 +81,7 @@ class UserModelTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testSetPassword($param, $expected)
+    public function testSetPassword($param, $expected): void
     {
         $user = new UserModel();
         $user->setPassword($param['password']);
@@ -95,7 +95,7 @@ class UserModelTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testGetCustomerName($param, $expected)
+    public function testGetCustomerName($param, $expected): void
     {
         $user = new UserModel();
         $user->setCustomerName($param['customer']);
@@ -109,7 +109,7 @@ class UserModelTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testSetCustomerName($param, $expected)
+    public function testSetCustomerName($param, $expected): void
     {
         $user = new UserModel();
         $user->setCustomerName($param['customer']);

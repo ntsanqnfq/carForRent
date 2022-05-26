@@ -17,19 +17,16 @@ class LoginServiceTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testLoginData($param, $expected)
+    public function testLogin($param, $expected): void
     {
-        $userModel = new UserModel();
-        $userModel->setUserName($expected['username']);
-        $userModel->setPassword($expected['password']);
-        $userLoginRepository = new UserLoginRepository($userModel);
+        $userLoginRepository = new UserLoginRepository();
         $loginService = new LoginService($userLoginRepository);
 
         $userRequest = new UserRequest();
         $userRequest->setUserName($param['username']);
         $userRequest->setPassword($param['password']);
         $user = $loginService->login($userRequest);
-        $this->assertEquals($userModel, $user);
+        $this->assertNotNull($user);
     }
 
     public function userDataProvider()

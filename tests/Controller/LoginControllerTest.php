@@ -3,57 +3,147 @@
 namespace Sang\tests\Controller;
 
 use PHPUnit\Framework\TestCase;
-use Sang\CarForRent\App\View;
 use Sang\CarForRent\Controller\LoginController;
-use Sang\CarForRent\Model\UserModel;
 use Sang\CarForRent\Repository\UserLoginRepository;
 use Sang\CarForRent\Request\UserRequest;
 use Sang\CarForRent\Service\LoginService;
-use Sang\CarForRent\Validation\UserLoginValidation;
 use Sang\CarForRent\Validation\UserRequestValidation;
 
 class LoginControllerTest extends TestCase
 {
     /**
+     * @dataProvider logloginDataProviderTrue
+     * @runInSeparateProcess
+     * @param $param
      * @return void
      */
-    public function testHandleLogin($param, $expected)
+    public function testHandleLoginTrue($param): void
     {
-        $userRequest = new UserRequest();
-        $userRequest->setUserName($param['username']);
-        $userRequest->setPassword($param['password']);
-        $userModel = new UserModel();
+        $_POST['userName'] = $param['username'];
+        $_POST['password'] = $param['password'];
 
-        $userLoginRepository = new UserLoginRepository($userModel);
-        $userLoginValidation = new UserLoginValidation();
-        $loginService = new LoginService($userLoginRepository, $userModel, $userLoginValidation);
+        $userRequest = new UserRequest();
+
+        $userLoginRepository = new UserLoginRepository();
+        $loginService = new LoginService($userLoginRepository);
         $userRequestValidation = new UserRequestValidation();
         $loginController = new LoginController($loginService, $userRequest, $userRequestValidation);
-        $result = $loginController->login();
-        $this->assertNull($result);
+        $result = $loginController->handleLogin();
+        $this->assertTrue($result);
+
     }
 
     /**
+     * @dataProvider loginDataProviderFalse
+     * @runInSeparateProcess
+     * @return void
+     */
+    public function testHandleLoginFalse($param)
+    {
+
+        $_POST['userName'] = $param['username'];
+        $_POST['password'] = $param['password'];
+        $userRequest = new UserRequest();
+
+        $userLoginRepository = new UserLoginRepository();
+        $loginService = new LoginService($userLoginRepository);
+        $userRequestValidation = new UserRequestValidation();
+        $loginController = new LoginController($loginService, $userRequest, $userRequestValidation);
+        $result = $loginController->handleLogin();
+        $this->assertFalse($result);
+
+    }
+
+    /**
+     * @dataProvider loginDataProviderNull
+     * @runInSeparateProcess
+     * @return void
+     */
+    public function testHandleLoginNull($param)
+    {
+
+        $_POST['userName'] = $param['username'];
+        $_POST['password'] = $param['password'];
+        $userRequest = new UserRequest();
+
+        $userLoginRepository = new UserLoginRepository();
+        $loginService = new LoginService($userLoginRepository);
+        $userRequestValidation = new UserRequestValidation();
+        $loginController = new LoginController($loginService, $userRequest, $userRequestValidation);
+        $result = $loginController->handleLogin();
+        $this->assertFalse($result);
+
+    }
+
+    /**
+     * @runInSeparateProcess
      * @return void
      */
     public function testLogin()
     {
-        View::render('login');
+        $userRequest = new UserRequest();
+
+        $userLoginRepository = new UserLoginRepository();
+        $loginService = new LoginService($userLoginRepository);
+        $userRequestValidation = new UserRequestValidation();
+        $loginController = new LoginController($loginService, $userRequest, $userRequestValidation);
+        $result = $loginController->login();
+
+        $this->assertTrue($result);
     }
 
-    public function loginDataProvider()
+    /**
+     * @runInSeparateProcess
+     * @return void
+     */
+    public function testLogout()
+    {
+        $userRequest = new UserRequest();
+
+        $userLoginRepository = new UserLoginRepository();
+        $loginService = new LoginService($userLoginRepository);
+        $userRequestValidation = new UserRequestValidation();
+        $loginController = new LoginController($loginService, $userRequest, $userRequestValidation);
+
+        $result = $loginController->logout();
+        $this->assertTrue($result);
+    }
+
+
+    public function logloginDataProviderTrue()
     {
         return [
-            'param' => [
-                'username' => 'ntsaq',
-                'password' => '123'
-            ],
-            'expected' => [
-                'username' => 'ntsaq',
-                'password' => '123'
+            'happy_case' => [
+                'param' => [
+                    'username' => 'ntsanq',
+                    'password' => '123'
+                ]
             ]
-
         ];
     }
 
+
+    public function loginDataProviderFalse()
+    {
+        return [
+            'wrong_case' => [
+                'param' => [
+                    'username' => 'ntsanq',
+                    'password' => '2313'
+                ]
+            ]
+        ];
+    }
+
+    public function loginDataProviderNull()
+    {
+        return [
+            'null_case' => [
+                'param' => [
+                    'username' => 'ntsanq',
+                    'password' => ''
+                ]
+            ]
+        ];
+    }
 }

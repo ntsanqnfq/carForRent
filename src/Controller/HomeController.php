@@ -7,10 +7,11 @@ use Sang\CarForRent\App\View;
 class HomeController
 {
     /**
-     * @return void
+     * @return bool
      */
-    public function home(): void
+    public function home(): bool
     {
         View::render('home');
+        return true;
     }
 }

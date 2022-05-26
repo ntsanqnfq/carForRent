@@ -7,10 +7,12 @@ use Sang\CarForRent\App\View;
 class NotFoundController
 {
     /**
-     * @return void
+     * @runInSeparateProcess
+     * @return bool
      */
-    public function notFound()
+    public function notFound(): bool
     {
         View::render('notfound');
+        return true;
     }
 }

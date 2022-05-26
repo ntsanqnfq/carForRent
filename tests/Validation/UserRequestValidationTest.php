@@ -14,7 +14,7 @@ class UserRequestValidationTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testCheckUserNamePassword($param, $expected)
+    public function testCheckUserNamePassword($param, $expected): void
     {
 
         $userRequest = new UserRequest();

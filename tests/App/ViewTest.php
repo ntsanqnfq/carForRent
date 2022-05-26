@@ -11,7 +11,8 @@ class ViewTest extends TestCase
     /**
      * @runInSeparateProcess
      */
-    public function testRedirect(){
+    public function testRedirect()
+    {
         View::redirect('/');
         $this->assertContains('Location: /', xdebug_get_headers());
     }

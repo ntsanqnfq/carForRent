@@ -3,7 +3,6 @@
 namespace Sang\tests\Repository;
 
 use PHPUnit\Framework\TestCase;
-use Sang\CarForRent\App\Application;
 use Sang\CarForRent\Model\UserModel;
 use Sang\CarForRent\Repository\UserLoginRepository;
 
@@ -15,13 +14,13 @@ class UserLoginRepositoryTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testSearchByUserName($param, $expected)
+    public function testSearchByUserName($param, $expected): void
     {
         $userModel = new UserModel();
         $userLoginRepository = new UserLoginRepository($userModel);
         $user = $userLoginRepository->searchByUserName($param['username']);
         $result = $user->getCustomerName();
-        $this->assertEquals($expected['customer_name'],$result);
+        $this->assertEquals($expected['customer_name'], $result);
     }
 
     public function userDataProvider()

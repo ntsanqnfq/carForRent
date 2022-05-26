@@ -7,9 +7,11 @@ use Sang\CarForRent\App\View;
 class ContactController
 {
     /**
-     * @return void
+     * @return bool
      */
-    public function contact(){
+    public function contact(): bool
+    {
         View::render('contact');
+        return true;
     }
 }

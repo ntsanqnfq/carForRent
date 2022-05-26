@@ -4,25 +4,19 @@ namespace Sang\CarForRent\Request;
 
 class UserRequest
 {
-    private $userName;
-    private $password;
-
-    public function __construct()
-    {
-        $this->userName = $_POST['userName'] ?? '';
-        $this->password = $_POST['password'] ?? '';
-    }
+    private string $userName;
+    private string $password;
 
     /**
-     * @return mixed|string
+     * @return string
      */
-    public function getUserName(): mixed
+    public function getUserName(): string
     {
         return $this->userName;
     }
 
     /**
-     * @param mixed|string $userName
+     * @param string $userName
      */
     public function setUserName(mixed $userName): void
     {
@@ -30,9 +24,9 @@ class UserRequest
     }
 
     /**
-     * @return mixed|string
+     * @return string
      */
-    public function getPassword(): mixed
+    public function getPassword(): string
     {
         return $this->password;
     }

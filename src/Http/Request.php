@@ -13,7 +13,7 @@ class Request
     /**
      * @return mixed
      */
-    public static function requestMethod()
+    public static function requestMethod(): mixed
     {
         return $_SERVER['REQUEST_METHOD'];
     }
@@ -21,7 +21,7 @@ class Request
     /**
      * @return mixed
      */
-    public static function requestUri()
+    public static function requestUri(): mixed
     {
         return $_SERVER['REQUEST_URI'];
     }

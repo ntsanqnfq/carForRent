@@ -9,35 +9,35 @@ use Sang\CarForRent\Model\UserModel;
 class UserLoginRepository
 {
     private PDO $connection;
-    private UserModel $userModel;
 
-    public function __construct(UserModel $userModel)
+    public function __construct()
     {
         $this->connection = Database::getConnection();
-        $this->userModel = $userModel;
     }
 
     /**
      * @param $userName
-     * @return UserModel|void
+     * @return UserModel|null
      */
-    public function searchByUserName($userName)
+    public function searchByUserName($userName): UserModel|null
     {
         $query = $this->connection->prepare("SELECT * FROM customer WHERE username = ? ");
-            $query->execute([$userName]);
+        $query->execute([$userName]);
 
-        try {
-            if ($row = $query->fetch()) {
-                $this->userModel->setUserName($row['username']);
-                $this->userModel->setPassword($row['password']);
-                $this->userModel->setCustomerName($row['customer_name']);
+        $row = $query->fetch();
+        $query->closeCursor();
 
-                return $this->userModel;
-            }
-        }
-        finally
-        {
-            $query->closeCursor();
-        }
+        if (!$row) return null;
+        return $this->setUser($row);
+    }
+
+    private function setUser(mixed $row): UserModel
+    {
+        $user = new UserModel();
+        $user->setUserName($row['username']);
+        $user->setPassword($row['password']);
+        $user->setCustomerName($row['customer_name']);
+        $user->setId($row['id_customer']);
+        return $user;
     }
 }

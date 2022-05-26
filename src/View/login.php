@@ -17,10 +17,10 @@
                         <label class="form-label">Email address</label>
                         <input type="text" class="form-control form-control-lg" name="userName"/>
                         <?php
-                        if (array_key_exists('login_error', $data)) {
-                        echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-                            . $data["login_error"] .
-                            '</div>';
+                        if (isset($data) && array_key_exists('login_error', $data)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+                                . $data["login_error"] .
+                                '</div>';
                         }
                         ?>
                     </div>
@@ -30,8 +30,8 @@
                         <label class="form-label">Password</label>
                         <input type="password" class="form-control form-control-lg" name="password"/>
                         <?php
-                        if (array_key_exists('login_error', $data)) {
-                            echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+                        if (isset($data) && array_key_exists('login_error', $data)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
                                 . $data["login_error"] .
                                 '</div>';
                         }
