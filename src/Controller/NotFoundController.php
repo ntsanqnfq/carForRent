@@ -3,16 +3,17 @@
 namespace Sang\CarForRent\Controller;
 
 use Sang\CarForRent\App\View;
+use Sang\CarForRent\Http\Response;
 
-class NotFoundController
+class NotFoundController extends BaseController
 {
+    public const INDEX_ACTION = 'index';
+
     /**
-     * @runInSeparateProcess
-     * @return bool
+     * @return Response
      */
-    public function notFound(): bool
+    public function index(): Response
     {
-        View::render('notfound');
-        return true;
+        View::redirect('notfound');
     }
 }

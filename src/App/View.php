@@ -3,6 +3,8 @@
 namespace Sang\CarForRent\App;
 
 
+use Sang\CarForRent\Http\Response;
+
 class View
 {
     /**
@@ -24,6 +26,19 @@ class View
     public static function redirect($url): bool
     {
         header("Location: $url");
+        return true;
+    }
+
+    /**
+     * @param Response $response
+     * @return bool
+     */
+    public function handle(Response $response) :bool
+    {
+        http_response_code($response->getStatusCode());
+        if (!empty($response->getTemplate())) {
+            return View::render($response->getTemplate(), $response->getOptions());
+        }
         return true;
     }
 }

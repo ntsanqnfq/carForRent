@@ -2,7 +2,6 @@
 
 namespace Sang\CarForRent\App;
 
-use Sang\CarForRent\Controller\ContactController;
 use Sang\CarForRent\Controller\HomeController;
 use Sang\CarForRent\Controller\LoginController;
 use Sang\CarForRent\Controller\NotFoundController;
@@ -10,12 +9,21 @@ use Sang\CarForRent\Http\Request;
 
 class Route
 {
+    /**
+     * @var string
+     */
     protected string $method;
-
+    /**
+     * @var string
+     */
     protected string $uri;
-
+    /**
+     * @var string
+     */
     protected string $controllerClassName;
-
+    /**
+     * @var string
+     */
     protected string $actionName;
 
     /**
@@ -23,36 +31,68 @@ class Route
      * @param string $uri
      * @param string $controllerClassName
      * @param string $actionName
-     * @return void
      */
-    private function setRoute(string $method, string $uri, string $controllerClassName, string $actionName): void
+    public function __construct(string $method, string $uri, string $controllerClassName, string $actionName)
     {
-        $this->method = $method;
-        $this->uri = $uri;
-        $this->controllerClassName = $controllerClassName;
-        $this->actionName = $actionName;
+        $this->setMethod($method);
+        $this->setUri($uri);
+        $this->setControllerClassName($controllerClassName);
+        $this->setActionName($actionName);
     }
 
 
     /**
-     * @return void
+     * @param  string $uri
+     * @param  string $controllerClassName
+     * @param  string $actionName
+     * @return Route
      */
-    public function getRoute()
+    public static function post(string $uri, string $controllerClassName, string $actionName): Route
     {
-        $routes = array(
-            array('GET', '/', HomeController::class, 'home'),
-            array('GET', '/login', LoginController::class, 'login'),
-            array('POST', '/login', LoginController::class, 'handleLogin'),
-            array('GET', '/contact', ContactController::class, 'contact'),
-            array('POST', '/logout', LoginController::class, 'logout')
-        );
+        return new static(Request::METHOD_POST, $uri, $controllerClassName, $actionName);
+    }
 
-        foreach ($routes as $route) {
-            if ($route[0] == Request::requestMethod() && $route[1] == Request::requestUri()) {
-                list($method, $uri, $controller, $action) = $route;
-                $this->setRoute($method, $uri, $controller, $action);
-            }
-        }
+    /**
+     * @param  string $uri
+     * @param  string $controllerClassName
+     * @param  string $actionName
+     * @return Route
+     */
+    public static function get(string $uri, string $controllerClassName, string $actionName): Route
+    {
+        return new static(Request::METHOD_GET, $uri, $controllerClassName, $actionName);
+    }
+
+    /**
+     * @param  string $uri
+     * @param  string $controllerClassName
+     * @param  string $actionName
+     * @return Route
+     */
+    public static function put(string $uri, string $controllerClassName, string $actionName): Route
+    {
+        return new static(Request::METHOD_PUT, $uri, $controllerClassName, $actionName);
+    }
+
+    /**
+     * @param  string $uri
+     * @param  string $controllerClassName
+     * @param  string $actionName
+     * @return Route
+     */
+    public static function delete(string $uri, string $controllerClassName, string $actionName): Route
+    {
+        return new static(Request::METHOD_DELETE, $uri, $controllerClassName, $actionName);
+    }
+
+    /**
+     * @param  string $method
+     * @param  string $uri
+     * @return bool
+     */
+    public function match(string $method, string $uri): bool
+    {
+        return $this->getMethod() === $method && $this->getUri() === $uri;
     }
 
     /**
@@ -118,6 +158,4 @@ class Route
     {
         $this->actionName = $actionName;
     }
-
-
 }
