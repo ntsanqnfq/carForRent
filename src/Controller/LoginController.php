@@ -2,74 +2,80 @@
 
 namespace Sang\CarForRent\Controller;
 
-use Sang\CarForRent\App\View;
-use Sang\CarForRent\Request\UserRequest;
+use Sang\CarForRent\Http\Request;
+use Sang\CarForRent\Http\Response;
 use Sang\CarForRent\Service\LoginService;
+use Sang\CarForRent\Service\SessionService;
+use Sang\CarForRent\Transformer\UserTransformer;
 use Sang\CarForRent\Validation\UserRequestValidation;
 
-class LoginController
+class LoginController extends BaseController
 {
     private LoginService $loginService;
-    private UserRequest $userRequest;
     private UserRequestValidation $userRequestValidation;
+    private SessionService $sessionService;
 
-    /**
-     * @param LoginService $loginService
-     * @param UserRequest $userRequest
-     * @param UserRequestValidation $userRequestValidation
-     */
-    public function __construct(LoginService $loginService, UserRequest $userRequest, UserRequestValidation $userRequestValidation)
+    public function __construct(Request $request,
+                                Response $response,
+                                LoginService $loginService,
+                                UserRequestValidation $userRequestValidation,
+                                SessionService $sessionService
+    )
     {
+        parent::__construct($request, $response);
         $this->loginService = $loginService;
-        $this->userRequest = $userRequest;
         $this->userRequestValidation = $userRequestValidation;
+        $this->sessionService = $sessionService;
     }
 
     /**
-     * @return bool
+     * @return Response
      */
-    public function login(): bool
+    public function login(): Response
     {
-        View::render('login');
-        return true;
+        return $this->response->view('login');
     }
 
-    /**
-     * @return bool
-     */
-    public function handleLogin(): bool
+    public function handleLogin(): bool|Response
     {
-        $this->userRequest->setUserName($_POST['userName']);
-        $this->userRequest->setPassword($_POST['password']);
+        $params = $this->request->formParams();
 
-        $validate = $this->userRequestValidation->checkUserNamePassword($this->userRequest);
+        $userTransfer = new UserTransformer();
+        $userTransfer->formArray($params);
+
+        $validate = $this->userRequestValidation->checkUserNamePassword($userTransfer);
 
         if (!empty($validate)) {
-            View::render('login', $validate);
-            return false;
+            return $this->reRenderViewLogin($validate);
         }
-        $user = $this->loginService->login($this->userRequest);
 
+        $user = $this->loginService->login($userTransfer);
         if ($user == null) {
-            View::render('login', [
+            $validate = [
                 'login_error' => 'user or password is incorrect'
-            ]);
-            return false;
+            ];
+            return $this->reRenderViewLogin($validate);
         }
+        $this->sessionService->set('username', $user->getUserName());
+        return $this->response->redirect('/');
 
-        $_SESSION['username'] = $user->getUserName();
-        View::redirect('/');
-
-        return true;
     }
 
     /**
-     * @return bool
+     * @return Response
      */
-    public function logout(): bool
+    public function logout(): Response
     {
-        unset($_SESSION['username']);
-        View::redirect('/');
-        return true;
+        $this->sessionService->unset('username');
+        return $this->response->redirect('/');
+    }
+
+    private function reRenderViewLogin(array $error): Response
+    {
+        return $this->response->view(
+            'login',
+            $error,
+            "400"
+        );
     }
 }

@@ -4,7 +4,7 @@ namespace Sang\CarForRent\Service;
 
 use Sang\CarForRent\Model\UserModel;
 use Sang\CarForRent\Repository\UserLoginRepository;
-use Sang\CarForRent\Request\UserRequest;
+use Sang\CarForRent\Transformer\UserTransformer;
 
 class LoginService
 {
@@ -16,22 +16,22 @@ class LoginService
     }
 
     /**
-     * @param UserRequest $userRequest
+     * @param UserTransformer $transformer
      * @return UserModel|bool
      */
-    public function login(UserRequest $userRequest): UserModel|bool
+    public function login(UserTransformer $transformer): UserModel|bool
     {
-        $userData = $this->userLoginRepository->searchByUserName($userRequest->getUserName());
-        if ($userData && $this->verifyPassword($userRequest, $userData)) {
+        $userData = $this->userLoginRepository->searchByUserName($transformer->getUserName());
+        if ($userData && $this->verifyPassword($transformer, $userData)) {
             return $userData;
         }
         return false;
     }
 
 
-    public function verifyPassword(UserRequest $userRequest, UserModel $userData): bool
+    public function verifyPassword(UserTransformer $transformer, UserModel $userData): bool
     {
-        if (password_verify($userRequest->getPassword(), $userData->getPassword())) {
+        if (password_verify($transformer->getPassword(), $userData->getPassword())) {
             return true;
         } else {
             return false;

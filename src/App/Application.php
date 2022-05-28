@@ -24,8 +24,8 @@ class Application
      */
     private function getRoute(): bool|Route
     {
-        $method = $this->request->requestMethod();
-        $uri = $this->request->requestUri();
+        $method = $this->request->getRequestMethod();
+        $uri = $this->request->getRequestUri();
         $routes = RouteConf::getRoute();
         foreach ($routes as $route) {
             if ($route->getMethod() !== $method || $route->getUri() !== $uri) {
@@ -44,15 +44,18 @@ class Application
         $controllerClassName = NotFoundController::class;
         $actionName = NotFoundController::INDEX_ACTION;
         $route = $this->getRoute();
-        $controllerClassName = $route->getControllerClassName();
-        $actionName = $route->getActionName();
+        if ($route) {
+            $controllerClassName = $route->getControllerClassName();
+            $actionName = $route->getActionName();
+        }
         $container = new Container();
         $controller = $container->make($controllerClassName);
+
         /**
          * @var Response $response
          */
-        Response $response= $controller->{$actionName}();
-        $view = new View();
+        $response = $controller->{$actionName}();
+        $view = $container->make(View::class);
         return $view->handle($response);
     }
 }

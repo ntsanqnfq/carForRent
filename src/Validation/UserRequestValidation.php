@@ -2,14 +2,14 @@
 
 namespace Sang\CarForRent\Validation;
 
-use Sang\CarForRent\Request\UserRequest;
+use Sang\CarForRent\Transformer\UserTransformer;
 
 class UserRequestValidation
 {
-    public function checkUserNamePassword(UserRequest $userRequest): array
+    public function checkUserNamePassword(UserTransformer $transformer): array
     {
 
-        if ($userRequest->getUserName() == '' || $userRequest->getPassword() == '') {
+        if ($transformer->getUserName() == '' || $transformer->getPassword() == '') {
             return [
                 'login_error' => 'username or password is null'
             ];

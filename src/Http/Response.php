@@ -54,12 +54,12 @@ class Response
     }
 
     /**
-     * @param string|null $message
+     * @param array $message
      * @param int $statusCode
      * @return $this
      */
 
-    public function error( array $message = [], int $statusCode = Response::HTTP_BAD_REQUEST): Response
+    public function error(array $message = [], int $statusCode = Response::HTTP_BAD_REQUEST): Response
     {
         $data = [
             'status' => 'error',
@@ -78,7 +78,7 @@ class Response
      * @param string $route
      * @return $this
      */
-    public function redirect(string $route)
+    public function redirect(string $route): static
     {
         header("Location: $route");
         return $this;

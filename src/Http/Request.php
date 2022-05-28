@@ -13,7 +13,7 @@ class Request
     /**
      * @return mixed
      */
-    public function requestMethod(): mixed
+    public function getRequestMethod(): mixed
     {
         return $_SERVER['REQUEST_METHOD'];
     }
@@ -21,7 +21,7 @@ class Request
     /**
      * @return mixed
      */
-    public function requestUri(): mixed
+    public function getRequestUri(): mixed
     {
         return $_SERVER['REQUEST_URI'];
     }
@@ -31,7 +31,7 @@ class Request
      */
     public function isGet(): bool
     {
-        if ($this->requestMethod()  === self::METHOD_GET) {
+        if ($this->getRequestMethod() === self::METHOD_GET) {
             return true;
         }
         return false;
@@ -42,9 +42,17 @@ class Request
      */
     public function isPost(): bool
     {
-        if ($this->requestMethod() === self::METHOD_POST) {
+        if ($this->getRequestMethod() === self::METHOD_POST) {
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function formParams(): array
+    {
+        return $_REQUEST;
     }
 }

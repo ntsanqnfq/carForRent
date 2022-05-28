@@ -3,15 +3,14 @@
 namespace Sang\CarForRent\Controller;
 
 use Sang\CarForRent\App\View;
+use Sang\CarForRent\Http\Response;
 
-class HomeController
+class HomeController extends BaseController
 {
-    /**
-     * @return bool
-     */
-    public function home(): bool
+
+    public function home(): Response
     {
-        View::render('home');
-        return true;
+        $view = 'home';
+        return $this->response->view($view);
     }
 }

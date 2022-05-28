@@ -5,13 +5,13 @@ namespace Sang\CarForRent\Controller;
 use Sang\CarForRent\Http\Request;
 use Sang\CarForRent\Http\Response;
 
-class BaseController
+abstract class BaseController
 {
     protected Request $request;
     protected Response $response;
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param Response $response
      */
     public function __construct(Request $request, Response $response)

@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 use Sang\CarForRent\App\Application;
 use Sang\CarForRent\Http\Request;
 

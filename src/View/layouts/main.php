@@ -26,13 +26,13 @@
                 <a class="nav-link" href="/login">Login</a>
             </li>
             <?php
-            if (isset($_SESSION['username'])){ ?>
+            if (isset($_SESSION['username'])) { ?>
 
-            <li class="nav-item">
-                <form method="post" action="/logout">
-                    <button type="submit">log out</button>
-                </form>
-            </li>
+                <li class="nav-item">
+                    <form method="post" action="/logout">
+                        <button type="submit">log out</button>
+                    </form>
+                </li>
 
             <?php } ?>
     </div>

@@ -7,13 +7,14 @@ use Sang\CarForRent\Http\Response;
 
 class NotFoundController extends BaseController
 {
-    public const INDEX_ACTION = 'index';
+    public const INDEX_ACTION = 'notFound';
 
     /**
      * @return Response
      */
-    public function index(): Response
+    public function notFound(): Response
     {
-        View::redirect('notfound');
+        $view = "notfound";
+        return $this->response->view($view, [], Response::HTTP_NOT_FOUND);
     }
 }

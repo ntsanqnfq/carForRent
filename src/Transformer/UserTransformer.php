@@ -1,0 +1,53 @@
+<?php
+
+namespace Sang\CarForRent\Transformer;
+
+class UserTransformer implements TransformerInterface
+{
+    private ?string $username;
+    private ?string $password;
+
+    public function formArray(array $params): UserTransformer
+    {
+        $this->username = $params['userName'] ?? null;
+        $this->password = $params['password'] ?? null;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param  string|null $username
+     * @return $this
+     */
+    public function setUsername(?string $username): UserTransformer
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param  string|null $password
+     * @return $this
+     */
+    public function setPassword(?string $password): UserTransformer
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+}

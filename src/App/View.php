@@ -36,6 +36,7 @@ class View
     public function handle(Response $response) :bool
     {
         http_response_code($response->getStatusCode());
+
         if (!empty($response->getTemplate())) {
             return View::render($response->getTemplate(), $response->getOptions());
         }
