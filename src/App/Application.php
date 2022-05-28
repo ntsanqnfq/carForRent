@@ -10,7 +10,7 @@ class Application
     /**
      * @throws ReflectionException
      */
-    public function start(): void
+    public function start(): bool
     {
         $container = new Container();
 
@@ -21,5 +21,6 @@ class Application
         $controllerClassName = $route->getControllerClassName();
         $controller = $container->make($controllerClassName);
         $controller->$actionName();
+        return true;
     }
 }

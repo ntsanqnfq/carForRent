@@ -2,7 +2,6 @@
 
 namespace Sang\CarForRent\App;
 
-use Sang\CarForRent\Controller\ContactController;
 use Sang\CarForRent\Controller\HomeController;
 use Sang\CarForRent\Controller\LoginController;
 use Sang\CarForRent\Controller\NotFoundController;
@@ -37,13 +36,12 @@ class Route
     /**
      * @return void
      */
-    public function getRoute()
+    public function getRoute(): void
     {
         $routes = array(
             array('GET', '/', HomeController::class, 'home'),
             array('GET', '/login', LoginController::class, 'login'),
             array('POST', '/login', LoginController::class, 'handleLogin'),
-            array('GET', '/contact', ContactController::class, 'contact'),
             array('POST', '/logout', LoginController::class, 'logout')
         );
 
@@ -92,6 +90,9 @@ class Route
      */
     public function getControllerClassName(): string
     {
+        if (empty($this->controllerClassName)) {
+            $this->controllerClassName = NotFoundController::class;
+        }
         return $this->controllerClassName;
     }
 
@@ -108,6 +109,9 @@ class Route
      */
     public function getActionName(): string
     {
+        if (empty($this->actionName)) {
+            $this->actionName = 'notfound';
+        }
         return $this->actionName;
     }
 
