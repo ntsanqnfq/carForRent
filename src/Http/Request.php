@@ -2,6 +2,8 @@
 
 namespace Sang\CarForRent\Http;
 
+use JsonException;
+
 class Request
 {
     const METHOD_OPTION = 'OPTION';
@@ -54,5 +56,15 @@ class Request
     public function formParams(): array
     {
         return $_REQUEST;
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function getRequestJsonBody(): mixed
+    {
+        $data = file_get_contents('php://input');
+
+        return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
     }
 }

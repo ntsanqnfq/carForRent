@@ -30,8 +30,9 @@
 
 
 <main role="main">
-
     <div class="album py-5 bg-light">
+
+        <h1 align="center">Cars available:</h1>
         <div class="container">
 
             <div class="row">
@@ -40,7 +41,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2022/04_12/family_chooser_tecnica_m.png"
+                             src="/asset/img/2.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -49,7 +50,7 @@
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Buy now</button>
                                 </div>
-                                <small class="text-muted">9 mins</small>
+                                <small class="text-muted">$999990</small>
                             </div>
                         </div>
                     </div>
@@ -57,7 +58,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/mobile/Aventador_ultimae_model_mobile.png"
+                             src="/asset/img/1.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -66,7 +67,7 @@
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Buy now</button>
                                 </div>
-                                <small class="text-muted">9 mins</small>
+                                <small class="text-muted">$999990</small>
                             </div>
                         </div>
                     </div>
@@ -74,7 +75,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2022/04_12/family_chooser_tecnica_m.png"
+                             src="/asset/img/2.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -83,7 +84,7 @@
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Buy now</button>
                                 </div>
-                                <small class="text-muted">9 mins</small>
+                                <small class="text-muted">$999990</small>
                             </div>
                         </div>
                     </div>
@@ -92,7 +93,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/mobile/Aventador_ultimae_model_mobile.png"
+                             src="/asset/img/1.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -101,7 +102,7 @@
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Buy now</button>
                                 </div>
-                                <small class="text-muted">9 mins</small>
+                                <small class="text-muted">$999990</small>
                             </div>
                         </div>
                     </div>
@@ -109,7 +110,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2022/04_12/family_chooser_tecnica_m.png";
+                             src="/asset/img/2.png";
                               alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -118,7 +119,7 @@
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Buy now</button>
                                 </div>
-                                <small class="text-muted">9 mins</small>
+                                <small class="text-muted">$999990</small>
                             </div>
                         </div>
                     </div>
@@ -127,7 +128,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/mobile/Aventador_ultimae_model_mobile.png"
+                             src="/asset/img/1.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -136,7 +137,7 @@
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Buy now</button>
                                 </div>
-                                <small class="text-muted">9 mins</small>
+                                <small class="text-muted">$999990</small>
                             </div>
                         </div>
                     </div>

@@ -9,20 +9,23 @@ use Sang\CarForRent\Transformer\UserTransformer;
 class LoginService
 {
     private UserLoginRepository $userLoginRepository;
+    private SessionService $sessionService;
 
-    public function __construct(UserLoginRepository $userLoginRepository)
+    public function __construct(UserLoginRepository $userLoginRepository, SessionService $sessionService)
     {
         $this->userLoginRepository = $userLoginRepository;
+        $this->sessionService = $sessionService;
     }
 
     /**
      * @param UserTransformer $transformer
      * @return UserModel|bool
      */
-    public function login(UserTransformer $transformer): UserModel|bool
+    public function checkExist(UserTransformer $transformer): UserModel|bool
     {
         $userData = $this->userLoginRepository->searchByUserName($transformer->getUserName());
         if ($userData && $this->verifyPassword($transformer, $userData)) {
+            $this->sessionService->set('username', $userData->getUserName());
             return $userData;
         }
         return false;

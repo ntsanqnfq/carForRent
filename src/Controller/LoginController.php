@@ -36,29 +36,24 @@ class LoginController extends BaseController
         return $this->response->view('login');
     }
 
-    public function handleLogin(): bool|Response
+    public function handleLogin(): Response
     {
         $params = $this->request->formParams();
-
         $userTransfer = new UserTransformer();
         $userTransfer->formArray($params);
-
-        $validate = $this->userRequestValidation->checkUserNamePassword($userTransfer);
-
-        if (!empty($validate)) {
+        $validate = $this->userRequestValidation->validate($userTransfer);
+        if ($validate) {
             return $this->reRenderViewLogin($validate);
         }
-
-        $user = $this->loginService->login($userTransfer);
+        $user = $this->loginService->checkExist($userTransfer);
         if ($user == null) {
             $validate = [
-                'login_error' => 'user or password is incorrect'
+                'username' => 'user or password is incorrect',
+                'password' => 'user or password is incorrect'
             ];
             return $this->reRenderViewLogin($validate);
         }
-        $this->sessionService->set('username', $user->getUserName());
         return $this->response->redirect('/');
-
     }
 
     /**
@@ -66,7 +61,7 @@ class LoginController extends BaseController
      */
     public function logout(): Response
     {
-        $this->sessionService->unset('username');
+            $this->sessionService->unset('username');
         return $this->response->redirect('/');
     }
 

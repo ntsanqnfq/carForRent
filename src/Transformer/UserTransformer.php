@@ -2,6 +2,8 @@
 
 namespace Sang\CarForRent\Transformer;
 
+use Sang\CarForRent\Model\ModelInterface;
+
 class UserTransformer implements TransformerInterface
 {
     private ?string $username;
@@ -9,7 +11,7 @@ class UserTransformer implements TransformerInterface
 
     public function formArray(array $params): UserTransformer
     {
-        $this->username = $params['userName'] ?? null;
+        $this->username = $params['username'] ?? null;
         $this->password = $params['password'] ?? null;
         return $this;
     }
@@ -50,4 +52,8 @@ class UserTransformer implements TransformerInterface
         return $this;
     }
 
+    public function transform(ModelInterface $model): array
+    {
+        // TODO: Implement transform() method.
+    }
 }

@@ -40,6 +40,17 @@ class View
         if (!empty($response->getTemplate())) {
             return View::render($response->getTemplate(), $response->getOptions());
         }
+        return $this->viewJson($response);
+    }
+
+    private function viewJson(Response $response): bool
+    {
+        http_response_code($response->getStatusCode());
+        foreach ($response->getHeaders() as $key => $value) {
+            header("$key:$value;");
+        }
+        print_r($response->getData());
         return true;
     }
+
 }

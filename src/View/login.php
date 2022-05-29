@@ -1,8 +1,9 @@
+
 <section class="vh-100">
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
-                <img src="https://tradesmartonline.in/blog/wp-content/uploads/2017/07/buy-a-car.png"
+                <img src="/asset/img/3.png"
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
@@ -15,11 +16,12 @@
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <label class="form-label">Email address</label>
-                        <input type="text" class="form-control form-control-lg" name="userName"/>
+                        <input type="text" class="form-control form-control-lg" name="username"/>
                         <?php
-                        if (isset($data) && array_key_exists('login_error', $data)) {
+                        if (isset($data) && array_key_exists('username', $data)) {
+
                             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-                                . $data["login_error"] .
+                                . $data["username"] .
                                 '</div>';
                         }
                         ?>
@@ -30,9 +32,9 @@
                         <label class="form-label">Password</label>
                         <input type="password" class="form-control form-control-lg" name="password"/>
                         <?php
-                        if (isset($data) && array_key_exists('login_error', $data)) {
+                        if (isset($data) && array_key_exists('password', $data)) {
                             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-                                . $data["login_error"] .
+                                . $data["password"] .
                                 '</div>';
                         }
                         ?>

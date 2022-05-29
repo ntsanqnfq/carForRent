@@ -1,4 +1,4 @@
-<h1>About us</h1>
+<h1 align="center">About us</h1>
 
 <h3>The Story Behind Car For Rent's Success (NFQ)</h3>
 
