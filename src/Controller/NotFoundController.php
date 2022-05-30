@@ -2,7 +2,6 @@
 
 namespace Sang\CarForRent\Controller;
 
-use Sang\CarForRent\App\View;
 use Sang\CarForRent\Http\Response;
 
 class NotFoundController extends BaseController

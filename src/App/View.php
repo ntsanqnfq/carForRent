@@ -33,10 +33,9 @@ class View
      * @param Response $response
      * @return bool
      */
-    public function handle(Response $response) :bool
+    public function handle(Response $response): bool
     {
         http_response_code($response->getStatusCode());
-
         if (!empty($response->getTemplate())) {
             return View::render($response->getTemplate(), $response->getOptions());
         }

@@ -38,7 +38,7 @@ class LoginController extends BaseController
 
     public function handleLogin(): Response
     {
-        $params = $this->request->formParams();
+        $params = $this->request->getFormParams();
         $userTransfer = new UserTransformer();
         $userTransfer->formArray($params);
         $validate = $this->userRequestValidation->validate($userTransfer);

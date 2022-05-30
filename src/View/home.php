@@ -5,18 +5,10 @@
     <meta name="Addport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
     <title>Car For Rent</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/album/">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- Custom styles for this template -->
-    <link href="assets/css/homeStyle.css" rel="stylesheet">
 </head>
 
 <body>
@@ -41,7 +33,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="/asset/img/2.png"
+                             src="/img/2.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -58,7 +50,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="/asset/img/1.png"
+                             src="/img/1.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -75,7 +67,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="/asset/img/2.png"
+                             src="/img/2.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -93,7 +85,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="/asset/img/1.png"
+                             src="/img/1.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -110,7 +102,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="/asset/img/2.png";
+                             src="/img/2.png";
                               alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>
@@ -128,7 +120,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
-                             src="/asset/img/1.png"
+                             src="/img/1.png"
                              alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">This car is cheap. Buy it!</p>

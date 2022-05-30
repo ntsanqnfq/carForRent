@@ -40,6 +40,9 @@ class CarApiController extends AbstractApiController
 
     public function addCar($data): CarModel
     {
+        $params = $this->request->getFormParams();
+        $carImg = $this->request->getFiles()['img'];
+
         return new CarModel();
     }
 

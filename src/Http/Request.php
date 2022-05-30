@@ -31,17 +31,6 @@ class Request
     /**
      * @return bool
      */
-    public function isGet(): bool
-    {
-        if ($this->getRequestMethod() === self::METHOD_GET) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
     public function isPost(): bool
     {
         if ($this->getRequestMethod() === self::METHOD_POST) {
@@ -53,7 +42,7 @@ class Request
     /**
      * @return array
      */
-    public function formParams(): array
+    public function getFormParams(): array
     {
         return $_REQUEST;
     }
@@ -67,4 +56,13 @@ class Request
 
         return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
     }
+
+    /**
+     * @return array
+     */
+    public function getFiles(): array
+    {
+        return $_FILES;
+    }
+
 }
