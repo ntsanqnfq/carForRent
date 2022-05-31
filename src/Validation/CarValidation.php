@@ -2,21 +2,25 @@
 
 namespace Sang\CarForRent\Validation;
 
+use Sang\CarForRent\App\AbstractValidation;
 use Sang\CarForRent\Transformer\TransformerInterface;
 
-class CarValidation implements ValidationInterface
+class CarValidation extends AbstractValidation
 {
-    public function validate(TransformerInterface $transformer): array
+    public string $name = '';
+    public string $color = '';
+    public string $brand = '';
+    public int $price = 0;
+    public string $img = '';
+
+    public function rules(): array
     {
-        $validateData = [
-            'name' => $transformer->ge(),
-            'price' => $transformer->getPrice(),
+        return [
+            'name' => [self::RULE_REQUIRED],
+            'color' => [self::RULE_REQUIRED],
+            'brand' => [self::RULE_REQUIRED],
+            'price' => [self::RULE_REQUIRED],
+            'img' => [self::RULE_REQUIRED],
         ];
-        $validateRules = [
-            'name' => ["max:50"],
-            'description' => ["required"],
-            'price' => ["required"],
-        ];
-        return $this->handleValidate($validateData, $validateRules);
     }
 }

@@ -26,6 +26,7 @@ class Response
      */
     public function view(string $template, array $options = [], int $statusCode = Response::HTTP_OK): Response
     {
+
         $this->setStatusCode($statusCode);
         $this->setTemplate($template);
         $this->setOptions($options);

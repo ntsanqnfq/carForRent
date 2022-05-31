@@ -4,29 +4,51 @@ namespace Sang\CarForRent\Controller;
 
 use Sang\CarForRent\Http\Request;
 use Sang\CarForRent\Http\Response;
+use Sang\CarForRent\Service\CarService;
+use Sang\CarForRent\Transformer\CarTransformer;
+use Sang\CarForRent\Validation\CarValidation;
 
 class CarController extends BaseController
 {
-    public function __construct(Request $request, Response $response)
+    private CarValidation $carValidation;
+    private CarService $carService;
+    public function __construct(Request $request, Response $response, CarValidation $carValidation, CarService $carService)
     {
         parent::__construct($request, $response);
-
+        $this->carValidation = $carValidation;
+        $this->carService = $carService;
     }
 
-    public function addCarIndex(): Response
+    public function addCar(): Response
     {
-        $view = 'addCarForm';
-        return $this->response->view($view);
-    }
+        if($this->request->isPost()) {
+            //get data
+            $params = $this->request->getFormParams();
+            $carImg = $this->request->getFiles()['img'];
+            $params = [
+                ...$params,
+                "img" => $carImg["name"]
+            ];
 
-    public function addCar()
-    {
-        $params = $this->request->getFormParams();
-        $carImg = $this->request->getFiles()['img'];
+            //tranfer
+            $carTransformer = new CarTransformer();
+            $carTransformer->formArray($params);
 
-        $params = [
-            ...$params,
-             "img" => $carImg["name"]
-        ];
+            //validate
+            $this->carValidation->loadData($params);
+            if (!$this->carValidation->validate()) {
+                return $this->response->view('addCarForm', ['errors' => $this->carValidation]);
+            }
+
+            //add to database
+            $car = $this->carService->createCar($carTransformer);
+
+            if($carImg["name"]){
+//                $errorUpload =
+            }
+
+            return $this->response->view('home');
+        }
+        return $this->response->view('addCarForm', ['errors' => $this->carValidation]);
     }
 }

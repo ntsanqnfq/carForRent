@@ -22,7 +22,7 @@ class RouteConf
 
             Route::get('/api/cars', CarApiController::class, 'listCars'),
             Route::post('/api/login', LoginApiController::class, 'login'),
-            Route::get('/addcar', CarController::class, 'addCarIndex'),
+            Route::get('/addcar', CarController::class, 'addCar'),
             Route::post('/addcar', CarController::class, 'addCar')
         ];
     }
