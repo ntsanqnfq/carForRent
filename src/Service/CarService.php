@@ -24,6 +24,7 @@ class CarService
         //check if it exist?
         $payload = [
             $carTransformer->getName(),
+            $carTransformer->getDescription(),
             $carTransformer->getImg(),
             $carTransformer->getColor(),
             $carTransformer->getBrand(),
@@ -36,11 +37,28 @@ class CarService
         //create
         $car = new CarModel();
         $car->setName($carTransformer->getName());
+        $car->setDescription($carTransformer->getDescription());
         $car->setImg($carTransformer->getImg());
         $car->setPrice($carTransformer->getPrice());
         $car->setImg($carTransformer->getImg());
 
         return $car;
+    }
+
+    /**
+     * @return int
+     */
+    public function countCar()
+    {
+        return sizeof($this->carRepository->listCar());
+    }
+
+    /**
+     * @return array
+     */
+    public function listCar()
+    {
+        return $this->carRepository->listCar();
     }
 
 }

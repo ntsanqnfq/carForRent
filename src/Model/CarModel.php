@@ -6,6 +6,7 @@ class CarModel implements ModelInterface
 {
     private int $id;
     private string $name;
+    private string $description;
     private string $img;
     private string $color;
     private string $brand;
@@ -41,6 +42,22 @@ class CarModel implements ModelInterface
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 
     /**
@@ -106,7 +123,6 @@ class CarModel implements ModelInterface
     {
         $this->price = $price;
     }
-
 
 
 }

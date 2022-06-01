@@ -9,7 +9,7 @@ class UserTransformer implements TransformerInterface
     private ?string $username;
     private ?string $password;
 
-    public function formArray(array $params): UserTransformer
+    public function toObject(array $params): UserTransformer
     {
         $this->username = $params['username'] ?? null;
         $this->password = $params['password'] ?? null;

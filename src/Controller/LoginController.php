@@ -15,11 +15,11 @@ class LoginController extends BaseController
     private UserRequestValidation $userRequestValidation;
     private SessionService $sessionService;
 
-    public function __construct(Request $request,
-                                Response $response,
-                                LoginService $loginService,
+    public function __construct(Request               $request,
+                                Response              $response,
+                                LoginService          $loginService,
                                 UserRequestValidation $userRequestValidation,
-                                SessionService $sessionService
+                                SessionService        $sessionService
     )
     {
         parent::__construct($request, $response);
@@ -40,7 +40,7 @@ class LoginController extends BaseController
     {
         $params = $this->request->getFormParams();
         $userTransfer = new UserTransformer();
-        $userTransfer->formArray($params);
+        $userTransfer->toObject($params);
         $validate = $this->userRequestValidation->validate($userTransfer);
         if ($validate) {
             return $this->reRenderViewLogin($validate);
@@ -61,7 +61,7 @@ class LoginController extends BaseController
      */
     public function logout(): Response
     {
-            $this->sessionService->unset('username');
+        $this->sessionService->unset('username');
         return $this->response->redirect('/');
     }
 

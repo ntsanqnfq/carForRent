@@ -33,7 +33,7 @@ class LoginApiController extends AbstractApiController
         if ($this->request->isPost()) {
             $params = $this->request->getRequestJsonBody();
             $userTransfer = new UserTransformer();
-            $userTransfer->formArray($params);
+            $userTransfer->toObject($params);
             $validate = $this->userRequestValidation->validate($userTransfer);
             if (!empty($validate)) {
                 return $this->response->error($validate);

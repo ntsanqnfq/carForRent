@@ -14,7 +14,7 @@ class RouteConf
     public static function getRoute(): array
     {
         return [
-            Route::get('/', HomeController::class, 'home'),
+            Route::get('/', CarController::class, 'index'),
             Route::get('/login', LoginController::class, 'login'),
             Route::post('/login', LoginController::class, 'handleLogin'),
             Route::post('/logout', LoginController::class, 'logout'),

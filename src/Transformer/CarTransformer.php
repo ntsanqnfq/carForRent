@@ -7,19 +7,41 @@ class CarTransformer implements TransformerInterface
 {
 
     private ?string $name;
+    private string $description;
     private ?string $img;
     private ?string $color;
     private ?string $brand;
     private ?int $price;
 
-    public function formArray(array $params): TransformerInterface
+    /**
+     * @param array $params
+     * @return TransformerInterface
+     */
+    public function toObject(array $params): TransformerInterface
     {
         $this->name = $params['name'] ?? null;
+        $this->description = $params['description'] ?? null;
         $this->img = $params['img'] ?? null;
         $this->color = $params['color'] ?? null;
         $this->brand = $params['brand'] ?? null;
         $this->price = $params['price'] ?? null;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 
     /**

@@ -31,7 +31,11 @@ class LoginService
         return false;
     }
 
-
+    /**
+     * @param UserTransformer $transformer
+     * @param UserModel $userData
+     * @return bool
+     */
     public function verifyPassword(UserTransformer $transformer, UserModel $userData): bool
     {
         if (password_verify($transformer->getPassword(), $userData->getPassword())) {
