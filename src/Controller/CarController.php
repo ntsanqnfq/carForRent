@@ -63,7 +63,7 @@ class CarController extends BaseController
                 $this->carTransformer->toObject($params);
                 $this->carService->createCar($this->carTransformer);
             }
-
+            $this->response->redirect('/');
             return $this->index();
         }
 

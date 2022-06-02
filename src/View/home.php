@@ -36,7 +36,9 @@
                                 <div class="card mb-4 box-shadow">
                                     <img class="card-img-top"
                                          src="<?php echo $car->getImg() ?>"
-                                         alt="Card image cap">
+                                         alt="Card image cap"
+                                         style="height: 210px; object-fit: cover"
+                                    >
                                     <div class="card-body">
                                         <p class="card-text"><?php echo $car->getName() ?> </p>
                                         <div class="d-flex justify-content-between align-items-center">
@@ -46,7 +48,7 @@
                                                 <button type="button" class="btn btn-sm btn-outline-secondary">Buy now
                                                 </button>
                                             </div>
-                                            <small class="text-muted"><?php echo '$' . number_format($car->getPrice()) ?></small>
+                                            <small class="text-muted"><?php echo '$' . number_format($car->getPrice()).'/hour'?></small>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +65,7 @@
 
     <footer class="text-muted">
         <div class="container">
-            <p class="float-right" >
+            <p class="float-right">
                 <a href="/addcar" style=" color: #7abaff ">Add car here</a>
             </p>
             <p>Choose your car to rent. Don't have money please go.</p>
