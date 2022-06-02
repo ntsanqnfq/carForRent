@@ -66,7 +66,7 @@
             <p class="invalid-feedback">
                 <?php
                 if (isset($data['imgerrors'])){
-                    echo ($data['imgerrors'][0]);
+                    echo ($data['imgerrors']);
                 }
                 ?>
 

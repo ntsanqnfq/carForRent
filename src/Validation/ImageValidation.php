@@ -22,10 +22,10 @@ class ImageValidation
     {
         $checkType = getimagesize($image["tmp_name"]);
         if(!$checkType){
-            return ['please upload an image'];
+            return ['imgerrors' => 'please upload an image'];
         }
         if($image['size'] > $size){
-            return ['image size is too large'];
+            return ['imgerrors' => 'image size is too large'];
         }
         return [];
     }
@@ -33,7 +33,7 @@ class ImageValidation
     public function validateCar($param): array
     {
         if(empty($param['brand']) || empty($param['price'])){
-            return ['brand and price can not be empty'];
+            return ['imgerrors' => 'brand and price can not be empty'];
         }
         return [];
     }

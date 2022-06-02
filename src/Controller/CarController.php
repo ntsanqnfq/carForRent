@@ -50,13 +50,13 @@ class CarController extends BaseController
             }
             $validate = $this->imgValidation->validate($carImg, 210000, $params);
             if ($validate) {
-                return $this->response->view('addCarForm', ['imgerrors' => $validate]);
+                return $this->response->view('addCarForm',  $validate);
             }
 
             $result = $this->uploadFileService->upLoadFile($carImg);
 
-            if (isset($result['error'])) {
-                return $this->response->view('addCarForm', ['imgerrors' => $result]);
+            if (isset($result['imgerrors'])) {
+                return $this->response->view('addCarForm', $result);
             } else {
                 $params = array_merge($params, ["img" => $result]);
 
