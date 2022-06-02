@@ -8,7 +8,18 @@
     <title>Car For Rent</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/album/">
+    <style>
+        footer{
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding-top: 1rem;
+            padding-bottom: 0.5rem;
+            background-color: #efefef;
+            text-align: center;
 
+        }
+    </style>
 </head>
 
 <body>
@@ -65,10 +76,12 @@
 
     <footer class="text-muted">
         <div class="container">
-            <p class="float-right">
-                <a href="/addcar" style=" color: #7abaff ">Add car here</a>
-            </p>
-            <p>Choose your car to rent. Don't have money please go.</p>
+            <div>
+                <b>Car For Rent</b>
+            </div>
+            <div style="font-size: 12px;">
+                123 Victoria - Ninh Kieu - Can Tho city
+            </div>
         </div>
     </footer>
 
