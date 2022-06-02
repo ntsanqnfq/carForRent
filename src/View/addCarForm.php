@@ -18,12 +18,10 @@
                     echo $data['errors']->getFirstError('name');} ?>
             </p>
             <label>Description</label>
-            <input
-                    type="text"
-                    class="form-control <?php if (isset($data['errors'])) {
-                    echo $data['errors']->hasError('description') ? 'is-invalid' : '';} ?>"
-                    name="description"
-            >
+            <textarea name="description" id="" cols="30" rows="10"
+                      class="form-control <?php if (isset($data['errors'])) {
+                          echo $data['errors']->hasError('description') ? 'is-invalid' : '';} ?>"></textarea>
+
             <p class="invalid-feedback">
                 <?php if (isset($data['errors'])) { echo $data['errors']->getFirstError('color') ;}?>
             </p>

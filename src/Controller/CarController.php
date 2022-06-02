@@ -43,8 +43,8 @@ class CarController extends BaseController
             $params = $this->request->getFormParams();
             $carImg = $this->request->getFiles()['img'];
             $params = array_merge($params, ["img" => $carImg['name']]);
-
             $this->carValidation->loadData($params);
+
             if (!$this->carValidation->validate()) {
                 return $this->response->view('addCarForm', ['errors' => $this->carValidation]);
             }

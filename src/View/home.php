@@ -63,10 +63,10 @@
 
     <footer class="text-muted">
         <div class="container">
-            <p class="float-right">
-                <a href="#">Back to top</a>
+            <p class="float-right" >
+                <a href="/addcar" style=" color: #7abaff ">Add car here</a>
             </p>
-            <p><b>Car for rent</b>. Choose your car to rent. Rent your car to choose</p>
+            <p>Choose your car to rent. Don't have money please go.</p>
         </div>
     </footer>
 
