@@ -64,7 +64,7 @@ class CarController extends BaseController
                 $this->carService->createCar($this->carTransformer);
             }
 
-            return $this->response->view('home');
+            return $this->index();
         }
 
         return $this->response->view('addCarForm', ['errors' => $this->carValidation]);
