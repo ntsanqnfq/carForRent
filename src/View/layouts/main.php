@@ -51,18 +51,18 @@
             if (!isset($_SESSION['username'])) { ?>
 
                 <li class="nav-item">
-                    <a class="btn btn-outline-dark" style="margin-left: 920px" href="/login">log in</a>
+                    <a class="btn btn-outline-dark" style="margin-left: 980px" href="/login">Log in</a>
                 </li>
 
             <?php } ?>
             <?php
             if (isset($_SESSION['username'])) { ?>
-                <li class="nav-item" style="margin-left: 770px">
+                <li class="nav-item" style="margin-left: 870px">
                     <?php echo "Welcome " . $_SESSION['username']; ?>
                 </li>
                 <li class="nav-item">
                     <form method="post" action="/logout">
-                        <button type="submit" class="btn btn-outline-dark" style="margin-left: 20px">log out</button>
+                        <button type="submit" class="btn btn-outline-dark" style="margin-left: 20px">Log out</button>
                     </form>
                 </li>
 

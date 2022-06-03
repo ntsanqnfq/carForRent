@@ -1,9 +1,23 @@
-<h1>Insert car</h1>
+<style>
+    .form{
+        margin: 60px;
+        margin-left: 400px;
+        margin-right:400px;
+        border-color: rgb(213,213,213);
+        border-style: solid;
+        border-radius: 30px;
+        padding: 25px;
+    }
+</style>
+
+
 <span class="invalid-feedback">
 <?php echo $data['imgerrors'][0];?>
 </span>
-<div style="padding-left: 100px; padding-right: 100px;">
+<div style="padding-left: 100px; padding-right: 100px;" class="form">
+    <h1>Insert car</h1>
     <form method="post" enctype="multipart/form-data">
+
         <div class="form-group">
             <label>Name</label>
             <input
