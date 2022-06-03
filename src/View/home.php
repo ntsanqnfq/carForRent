@@ -38,7 +38,7 @@
             <div class="container">
                 <?php if (!empty($data['count'] === 0)) {
                     echo "<h1 align='center'>There is no car now. Get out my store please!</h1>";
-                } else echo "<h1 align='center'>Cars available:</h1>"; ?>
+                } else echo ""; ?>
                 <div class="row">
                     <?php if (!empty($data)) {
                         foreach ($data['list'] as $key => $car) { ?>
