@@ -5,10 +5,9 @@ namespace Sang\CarForRent\Validation;
 class ImageValidation
 {
 
-    public function validate($img, $size, $param):array
+    public function validate($img, $size):array
     {
         $checkImage = $this->validateImage($img, $size);
-        $checkCar = $this->validateCar($param);
         if(!empty($checkCar)){
             return $checkCar;
         }
@@ -26,14 +25,6 @@ class ImageValidation
         }
         if($image['size'] > $size){
             return ['imgerrors' => 'image size is too large'];
-        }
-        return [];
-    }
-
-    public function validateCar($param): array
-    {
-        if(empty($param['brand']) || empty($param['price'])){
-            return ['imgerrors' => 'brand and price can not be empty'];
         }
         return [];
     }

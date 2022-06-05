@@ -8,15 +8,6 @@ use Dotenv\Dotenv;
 
 class UploadFileService
 {
-//    public function upLoadFile($file, $dir): array
-//    {
-//        $targetFile = $dir . basename($file['name']);
-//        if(move_uploaded_file($file['tmp_name'], $targetFile)){
-//            return [];
-//        }
-//        return ['can not upload file'];
-//    }
-
     private static Dotenv $loadEnv;
 
     public function upLoadFile($file)

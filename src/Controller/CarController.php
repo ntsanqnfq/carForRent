@@ -39,41 +39,45 @@ class CarController extends BaseController
     public function addCar(): Response
     {
         if ($this->request->isPost()) {
-
-            $params = $this->request->getFormParams();
-            $carImg = $this->request->getFiles()['img'];
-            $params = array_merge($params, ["img" => $carImg['name']]);
-            $this->carValidation->loadData($params);
-
+            $formData = $this->getFormData();
+            $this->carValidation->loadData($formData);
             if (!$this->carValidation->validate()) {
                 return $this->response->view('addCarForm', ['errors' => $this->carValidation]);
             }
-            $validate = $this->imgValidation->validate($carImg, 210000, $params);
-            if ($validate) {
-                return $this->response->view('addCarForm',  $validate);
+            $imgValidate = $this->imgValidation->validate($this->getImg(), 210000);
+            if ($imgValidate) {
+                return $this->response->view('addCarForm', $imgValidate);
             }
-
-            $result = $this->uploadFileService->upLoadFile($carImg);
-
+            $result = $this->uploadFileService->upLoadFile($this->getImg());
             if (isset($result['imgerrors'])) {
                 return $this->response->view('addCarForm', $result);
             } else {
-                $params = array_merge($params, ["img" => $result]);
-
-                $this->carTransformer->toObject($params);
+                $formData = array_merge($formData, ["img" => $result]);
+                $this->carTransformer->toObject($formData);
                 $this->carService->createCar($this->carTransformer);
             }
-            $this->response->redirect('/');
             return $this->index();
         }
-
         return $this->response->view('addCarForm', ['errors' => $this->carValidation]);
+    }
+
+    public function getFormData(): array
+    {
+        $params = $this->request->getFormParams();
+        $carImg = $this->getImg();
+        return array_merge($params, ["img" => $carImg['name']]);
+    }
+
+    public function getImg()
+    {
+       return $this->request->getFiles()['img'];
     }
 
     public function index()
     {
         $carList = $this->carService->listCar();
         $countCar = $this->carService->countCar();
+        $this->response->redirect('/');
         return $this->response->view('home', ['list' => $carList,
             'count' => $countCar
         ]);

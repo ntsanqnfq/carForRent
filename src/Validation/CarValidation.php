@@ -10,7 +10,7 @@ class CarValidation extends AbstractValidation
     public string $description = '';
     public string $color = '';
     public string $brand = '';
-    public int $price = 0;
+    public string $price = '';
     public string $img = '';
 
     public function rules(): array
