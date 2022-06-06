@@ -12,7 +12,7 @@
 
 
 <span class="invalid-feedback">
-<?php echo $data['imgerrors'][0];?>
+<?php var_dump($data); die;?>
 </span>
 <div style="padding-left: 100px; padding-right: 100px;" class="form">
     <h1>Insert car</h1>
@@ -72,13 +72,13 @@
             <label>Image</label>
             <input
                     type="file"
-                    class="form-control <?php if (isset($data['imgerrors'])) {echo 'is-invalid';} ?>"
+                    class="form-control <?php if (isset($data['img'])) {echo 'is-invalid';} ?>"
                     name="img"
             >
             <p class="invalid-feedback">
                 <?php
-                if (isset($data['imgerrors'])){
-                    echo ($data['imgerrors']);
+                if (isset($data['img'])){
+                    echo ($data['img']);
                 }
                 ?>
 

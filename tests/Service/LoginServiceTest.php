@@ -3,10 +3,10 @@
 namespace Sang\tests\Service;
 
 use PHPUnit\Framework\TestCase;
-use Sang\CarForRent\Model\UserModel;
 use Sang\CarForRent\Repository\UserLoginRepository;
-use Sang\CarForRent\Request\UserRequest;
 use Sang\CarForRent\Service\LoginService;
+use Sang\CarForRent\Service\SessionService;
+use Sang\CarForRent\Transformer\UserTransformer;
 
 class LoginServiceTest extends TestCase
 {
@@ -17,16 +17,18 @@ class LoginServiceTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testLogin($param, $expected): void
+    public function testCheckExist($param, $expected)
     {
         $userLoginRepository = new UserLoginRepository();
-        $loginService = new LoginService($userLoginRepository);
+        $sessionService = new SessionService();
+        $loginService = new LoginService($userLoginRepository, $sessionService);
+        $userTransformer = new UserTransformer();
+        $userTransformer->setUsername($param['username']);
+        $userTransformer->setPassword($param['password']);
+        $user = $loginService->checkExist($userTransformer);
+        $result = $user->getCustomerName();
 
-        $userRequest = new UserRequest();
-        $userRequest->setUserName($param['username']);
-        $userRequest->setPassword($param['password']);
-        $user = $loginService->login($userRequest);
-        $this->assertNotNull($user);
+        $this->assertEquals($expected['customer_name'], $result);
     }
 
     public function userDataProvider()

@@ -24,10 +24,10 @@ class UploadFileService
             'credentials' => ['key' => $accessKey, 'secret' => $secretKey]
         ]);
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            return ['imgerrors' => 'Invalid request method'];
+            return ['img' => 'Invalid request method'];
         }
         if (!isset($file) || $file["error"] != 0) {
-            return ['imgerrors' =>  'File upload does not exist'];
+            return ['img' =>  'File upload does not exist'];
         }
         $allowed = array(
             "jpg" => "image/jpg",
@@ -41,15 +41,15 @@ class UploadFileService
         $filesize = $file["size"];
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         if (!array_key_exists($ext, $allowed)) {
-            return ['imgerrors' =>  'Please select a valid file format'];
+            return ['img' =>  'Please select a valid file format'];
         }
         $maxsize = 10 * 1024 * 1024;
 
         if ($filesize > $maxsize) {
-            return ['imgerrors' =>  'File size is larger than the allowed limit'];
+            return ['img' =>  'File size is larger than the allowed limit'];
         }
         if (!in_array($filetype, $allowed)) {
-            return ['imgerrors' =>  'Please select a valid file format'];
+            return ['img' =>  'Please select a valid file format'];
         }
         if (move_uploaded_file($file["tmp_name"], $path . $filename)) {
             $file_Path = $path . $filename;
@@ -63,10 +63,10 @@ class UploadFileService
                 unlink($path . $filename);
                 return $result->get('ObjectURL');
             } catch (S3Exception $e) {
-                return ['imgerrors' =>  'Error when upload image to S3!!!'];
+                return ['img' =>  'Error when upload image to S3!!!'];
             }
         } else {
-            return ['imgerrors' =>  'There was an error!!'];
+            return ['img' =>  'There was an error!!'];
         }
     }
 

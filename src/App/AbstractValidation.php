@@ -92,4 +92,20 @@ abstract class AbstractValidation
     {
         return $this->errors[$attribute][0] ?? false;
     }
+
+    /**
+     * @return array
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @param array $errors
+     */
+    public function setErrors(array $errors): void
+    {
+        $this->errors = $errors;
+    }
 }

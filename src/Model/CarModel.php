@@ -31,7 +31,7 @@ class CarModel implements ModelInterface
     /**
      * @return string
      */
-    public function getName(): string
+        public function getName(): string
     {
         return $this->name;
     }

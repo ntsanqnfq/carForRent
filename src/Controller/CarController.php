@@ -39,29 +39,23 @@ class CarController extends BaseController
     public function addCar(): Response
     {
         if ($this->request->isPost()) {
-            $formData = $this->getFormData();
-            $this->carValidation->loadData($formData);
-            if (!$this->carValidation->validate()) {
-                return $this->response->view('addCarForm', ['errors' => $this->carValidation]);
-            }
-            $imgValidate = $this->imgValidation->validate($this->getImg(), 210000);
-            if ($imgValidate) {
-                return $this->response->view('addCarForm', $imgValidate);
-            }
+            $params = $this->getParams();
+            $this->validateFormData($params);
             $result = $this->uploadFileService->upLoadFile($this->getImg());
-            if (isset($result['imgerrors'])) {
+            if (isset($result['img-error'])) {
                 return $this->response->view('addCarForm', $result);
             } else {
-                $formData = array_merge($formData, ["img" => $result]);
-                $this->carTransformer->toObject($formData);
+                $params = array_merge($params, ["img" => $result]);
+                var_dump($params['img']);
+                $this->carTransformer->toObject($params);
                 $this->carService->createCar($this->carTransformer);
             }
-            return $this->index();
+            return $this->backHome();
         }
-        return $this->response->view('addCarForm', ['errors' => $this->carValidation]);
+        return $this->response->view('addCarForm');
     }
 
-    public function getFormData(): array
+    public function getParams(): array
     {
         $params = $this->request->getFormParams();
         $carImg = $this->getImg();
@@ -70,10 +64,24 @@ class CarController extends BaseController
 
     public function getImg()
     {
-       return $this->request->getFiles()['img'];
+        return $this->request->getFiles()['img'];
     }
 
-    public function index()
+    public function validateFormData($params): Response
+    {
+        $errors = [];
+        $this->carValidation->loadData($params);
+        if (!$this->carValidation->validate()) {
+            $errors = $this->carValidation->getErrors();
+        }
+        $imgValidate = $this->imgValidation->validate($this->getImg(), 322);
+        if ($imgValidate) {
+            $errors =  array_merge($errors,  $imgValidate);
+        }
+        return $this->response->view('addCarForm',$errors);
+    }
+
+    public function backHome(): Response
     {
         $carList = $this->carService->listCar();
         $countCar = $this->carService->countCar();

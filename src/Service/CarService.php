@@ -19,7 +19,7 @@ class CarService
      * @param CarTransformer $carTransformer
      * @return CarModel|null
      */
-    public function createCar(CarTransformer $carTransformer)
+    public function createCar(CarTransformer $carTransformer): ?CarModel
     {
         //check if it exist?
         $payload = [
@@ -48,7 +48,7 @@ class CarService
     /**
      * @return int
      */
-    public function countCar()
+    public function countCar(): int
     {
         return sizeof($this->carRepository->listCar());
     }
@@ -56,7 +56,7 @@ class CarService
     /**
      * @return array
      */
-    public function listCar()
+    public function listCar(): array
     {
         return $this->carRepository->listCar();
     }

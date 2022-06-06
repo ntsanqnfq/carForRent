@@ -5,16 +5,21 @@ namespace Sang\CarForRent\Repository;
 
 use PDO;
 use Sang\CarForRent\Model\CarModel;
+use Sang\CarForRent\Transformer\CarTransformer;
 
 class CarRepository extends AbstractRepository
 {
+    /**
+     * @param $tranferObject
+     * @return bool
+     */
     public function insertCar($tranferObject): bool
     {
         $query = $this->getConnection()->prepare("INSERT INTO car (name, description, img, color, brand, price) VALUES (?,?,?,?,?,?)");
         return $query->execute($tranferObject);
     }
 
-    public function listCar()
+    public function listCar(): array
     {
         $query = $this->getConnection()->prepare("SELECT * FROM car");
         $query->execute();
