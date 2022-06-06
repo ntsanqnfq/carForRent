@@ -2,56 +2,75 @@
 
 namespace Sang\CarForRent\Controller;
 
-
-use PDO;
-use Sang\CarForRent\App\Container;
-use Sang\CarForRent\App\View;
-use Sang\CarForRent\Request\UserRequest;
+use Sang\CarForRent\Http\Request;
+use Sang\CarForRent\Http\Response;
 use Sang\CarForRent\Service\LoginService;
+use Sang\CarForRent\Service\SessionService;
+use Sang\CarForRent\Transformer\UserTransformer;
 use Sang\CarForRent\Validation\UserRequestValidation;
 
-class LoginController
+class LoginController extends BaseController
 {
     private LoginService $loginService;
-    private UserRequest $userRequest;
     private UserRequestValidation $userRequestValidation;
+    private SessionService $sessionService;
 
-    public function __construct(LoginService $loginService, UserRequest $userRequest, UserRequestValidation $userRequestValidation)
+    public function __construct(Request               $request,
+                                Response              $response,
+                                LoginService          $loginService,
+                                UserRequestValidation $userRequestValidation,
+                                SessionService        $sessionService
+    )
     {
+        parent::__construct($request, $response);
         $this->loginService = $loginService;
-        $this->userRequest = $userRequest;
         $this->userRequestValidation = $userRequestValidation;
+        $this->sessionService = $sessionService;
     }
 
     /**
-     * @return void
+     * @return Response
      */
-    public function login(): void
+    public function login(): Response
     {
-        View::render('login');
+        return $this->response->view('login');
     }
 
-    public function handleLogin()
+    public function handleLogin(): Response
     {
-        //handle request
-        $userRequest = $this->userRequest;
-        // validation
-        $validate = $this->userRequestValidation->checkUserNamePassword($userRequest); //check user request
-        if ($validate != []){
-            View::render('login', $validate);
+        $params = $this->request->getFormParams();
+        $userTransfer = new UserTransformer();
+        $userTransfer->toObject($params);
+        $validate = $this->userRequestValidation->validate($userTransfer);
+        if ($validate) {
+            return $this->reRenderViewLogin($validate);
         }
-        // use service for logging
-        $user = $this->loginService->login($this->userRequest); // check database
-        // return view
-        $_SESSION['username'] = $this->loginService->getUser()->getUserName();
-        View::render('home');
-
+        $user = $this->loginService->checkExist($userTransfer);
+        if ($user == null) {
+            $validate = [
+                'username' => 'user or password is incorrect',
+                'password' => 'user or password is incorrect'
+            ];
+            return $this->reRenderViewLogin($validate);
+        }
+        return $this->response->redirect('/');
     }
 
-    public function logout(){
-        unset($_SESSION['username']);
-        View::redirect('/');
+    /**
+     * @return Response
+     */
+    public function logout(): Response
+    {
+        $this->sessionService->unset('username');
+        return $this->response->redirect('/');
     }
 
+    private function reRenderViewLogin(array $error): Response
+    {
+        return $this->response->view(
+            'login',
+            $error,
+            "400"
+        );
+    }
 }
-

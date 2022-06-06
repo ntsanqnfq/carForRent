@@ -2,46 +2,46 @@
 
 namespace Sang\CarForRent\Service;
 
-use http\Client\Curl\User;
 use Sang\CarForRent\Model\UserModel;
 use Sang\CarForRent\Repository\UserLoginRepository;
-use Sang\CarForRent\Validation\UserLoginValidation;
-use Sang\CarForRent\Validation\UserRequestValidation;
+use Sang\CarForRent\Transformer\UserTransformer;
 
 class LoginService
 {
     private UserLoginRepository $userLoginRepository;
-    private UserModel $userModel;
-    private UserLoginValidation $userLoginValidation;
+    private SessionService $sessionService;
 
-    public function __construct(UserLoginRepository $userLoginRepository, UserModel $userModel, UserLoginValidation $userLoginValidation)
+    public function __construct(UserLoginRepository $userLoginRepository, SessionService $sessionService)
     {
         $this->userLoginRepository = $userLoginRepository;
-        $this->userModel = $userModel;
-        $this->userLoginValidation = $userLoginValidation;
+        $this->sessionService = $sessionService;
     }
 
     /**
-     * @return void
-     * @throws \Exception
+     * @param UserTransformer $transformer
+     * @return UserModel|bool
      */
-    public function login($userRequest): UserModel
+    public function checkExist(UserTransformer $transformer): UserModel|bool
     {
-        $userData = $this->userLoginRepository->searchByUserName($userRequest->getUserName());
-
-        $this->userLoginValidation->validate($userData,$userRequest);
-
-        $this->userModel->setId($userData['id_customer']);
-        $this->userModel->setUserName($userData['username']);
-        $this->userModel->setCustomerName($userData['customer_name']);
-        return  $this->userModel;
+        $userData = $this->userLoginRepository->searchByUserName($transformer->getUserName());
+        if ($userData && $this->verifyPassword($transformer, $userData)) {
+            $this->sessionService->set('username', $userData->getUserName());
+            return $userData;
+        }
+        return false;
     }
 
     /**
-     * @return UserModel
+     * @param UserTransformer $transformer
+     * @param UserModel $userData
+     * @return bool
      */
-    public function getUser()
+    public function verifyPassword(UserTransformer $transformer, UserModel $userData): bool
     {
-        return $this->userModel;
+        if (password_verify($transformer->getPassword(), $userData->getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

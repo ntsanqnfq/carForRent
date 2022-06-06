@@ -1,43 +1,56 @@
-<section class="vh-100">
-    <div class="container-fluid h-custom">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-9 col-lg-6 col-xl-5">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                     class="img-fluid" alt="Sample image">
-            </div>
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form method="post" action="/login">
+<style>
+    .btn-block {
+        background-color: rgb(121,119,119);
+        border-color: rgb(151,149,149);
+    }
+    .form{
+        margin: 60px;
+        margin-left: 400px;
+        margin-right:400px;
+        border-color: rgb(213,213,213);
+        border-style: solid;
+        border-radius: 30px;
+        padding: 50px;
+    }
+</style>
 
-                    <div class="divider d-flex align-items-center my-4">
-                        <h1>Login</h1>
-                    </div>
+<div class="form">
+    <form method="post" action="/login">
+        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
 
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <label class="form-label">Email address</label>
-                        <input type="text" class="form-control form-control-lg" name="userName"/>
-                    </div>
+        <div class="form-outline mb-4">
+            <label class="form-label"  style="margin-left: 0px;">Username</label>
+            <input type="text" class="form-control form-control-lg" name="username">
+            <?php
+            if (isset($data) && array_key_exists('username', $data)) {
 
-                    <!-- Password input -->
-                    <div class="form-outline mb-3">
-                        <label class="form-label" >Password</label>
-                        <input type="password" class="form-control form-control-lg" name="password"/>
-                    </div>
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+                    . $data["username"] .
+                    '</div>';
+            }
+            ?>
 
-                    <div class="d-flex justify-content-between align-items-center">
-                    </div>
+            <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 88.8px;"></div><div class="form-notch-trailing"></div></div></div>
 
-                    <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="submit" class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
-                        </button>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                                                                                          class="link-danger">Register</a>
-                        </p>
-                    </div>
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example27" style="margin-left: 0px;">Password</label>
+            <input type="password" class="form-control form-control-lg" name="password">
+            <?php
+            if (isset($data) && array_key_exists('password', $data)) {
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+                    . $data["password"] .
+                    '</div>';
+            }
+            ?>
+            <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 64.8px;"></div><div class="form-notch-trailing"></div></div></div>
 
-                </form>
-            </div>
+        <div class="pt-1 mb-4">
+            <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
         </div>
-    </div>
-</section>
+
+        <a class="small text-muted" href="#!">Forgot password?</a>
+        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!" style="color: #393f81;">Register here</a></p>
+        <a href="#!" class="small text-muted">Terms of use.</a>
+        <a href="#!" class="small text-muted">Privacy policy</a>
+    </form>
+</div>

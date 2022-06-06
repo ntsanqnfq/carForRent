@@ -6,3 +6,7 @@
 /composer.phar/
 .DS_Store
 src/.env
+/.phpunit.cache
+/coverage
+/.phpunit.result.cache
+/.psalm.xml

@@ -2,33 +2,33 @@
 
 namespace Sang\CarForRent\Repository;
 
-use PDO;
-use Sang\CarForRent\Database\Database;
+use Sang\CarForRent\Model\UserModel;
 
-class UserLoginRepository
+class UserLoginRepository extends AbstractRepository
 {
-    private PDO $connection;
-
-    public function __construct()
-    {
-        $this->connection = Database::getConnection();
-    }
-
     /**
      * @param $userName
-     * @return mixed|void
+     * @return UserModel|null
      */
-    public function searchByUserName($userName)
+    public function searchByUserName($userName): UserModel|null
     {
-        $query = $this->connection->prepare("SELECT * FROM customer WHERE username = ? ");
+        $query = $this->getConnection()->prepare("SELECT * FROM customer WHERE username = ? ");
         $query->execute([$userName]);
 
-        try {
-            if ($row = $query->fetch()){
-                return $row;
-            }
-        } finally {
-            $query->closeCursor();
-        }
+        $row = $query->fetch();
+        $query->closeCursor();
+
+        if (!$row) return null;
+        return $this->setUser($row);
+    }
+
+    private function setUser(mixed $row): UserModel
+    {
+        $user = new UserModel();
+        $user->setUserName($row['username']);
+        $user->setPassword($row['password']);
+        $user->setCustomerName($row['customer_name']);
+        $user->setId($row['id_customer']);
+        return $user;
     }
 }
