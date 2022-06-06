@@ -1,0 +1,12 @@
+/vendor/
+/.idea/
+/phpcbf.phar/
+/phpcs.phar/
+/phpunit.phar/
+/composer.phar/
+.DS_Store
+src/.env
+/.phpunit.cache
+/coverage
+/.phpunit.result.cache
+/.psalm.xml

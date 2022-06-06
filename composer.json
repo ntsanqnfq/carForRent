@@ -1,0 +1,23 @@
+{
+  "name": "sang/car-for-rent",
+  "autoload": {
+    "psr-4": {
+      "Sang\\CarForRent\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Sang\\tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9",
+    "vimeo/psalm": "^4.23",
+    "ext-xdebug": "*"
+  },
+  "require": {
+    "vlucas/phpdotenv": "^5.4",
+    "ext-pdo": "*",
+    "aws/aws-sdk-php": "^3.224"
+  }
+}
