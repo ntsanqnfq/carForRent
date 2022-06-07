@@ -2,7 +2,7 @@
 
 namespace Sang\CarForRent\Exception;
 
-class AuthenticationException
+class AuthenticationException extends \Exception
 {
 
 }

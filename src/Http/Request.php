@@ -47,6 +47,14 @@ class Request
         return $_REQUEST;
     }
 
+    public function getParams()
+    {
+        $path = $_SERVER['REQUEST_URI'];
+        $pathComponents = parse_url($path);
+        parse_str($pathComponents['query'], $params);
+        return $params;
+    }
+
     /**
      * @throws JsonException
      */

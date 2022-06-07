@@ -12,7 +12,7 @@ class ImageValidation
     public function validateImage($image, $size): array
     {
         if ($image['size'] > $size) {
-            return ['img' => 'Image size is too large'];
+            return ['img-' => 'Image size is too large'];
         }
         if ($image['size'] === 0) {
             return ['img' => 'Theres no image here'];

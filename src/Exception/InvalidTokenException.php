@@ -2,7 +2,7 @@
 
 namespace Sang\CarForRent\Exception;
 
-class InvalidTokenException
+class InvalidTokenException extends \Exception
 {
 
 }

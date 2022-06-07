@@ -24,7 +24,8 @@ class CarTransformer implements TransformerInterface
         $this->img = $params['img'] ?? null;
         $this->color = $params['color'] ?? null;
         $this->brand = $params['brand'] ?? null;
-        $this->price = $params['price'] ?? null;
+        $this->price = intval($params['price']) ?? 0;
+
         return $this;
     }
 

@@ -8,14 +8,12 @@ use Sang\CarForRent\Service\CarService;
 use Sang\CarForRent\Service\UploadFileService;
 use Sang\CarForRent\Transformer\CarTransformer;
 use Sang\CarForRent\Validation\CarValidation;
-use Sang\CarForRent\Validation\ImageValidation;
 
 class CarController extends BaseController
 {
     const TARGET_DIR = 'img/';
     private CarValidation $carValidation;
     private CarService $carService;
-    private ImageValidation $imgValidation;
     private UploadFileService $uploadFileService;
     private CarTransformer $carTransformer;
 
@@ -23,7 +21,6 @@ class CarController extends BaseController
                                 Response          $response,
                                 CarValidation     $carValidation,
                                 CarService        $carService,
-                                ImageValidation   $imgValidation,
                                 UploadFileService $uploadFileService,
                                 CarTransformer    $carTransformer,
     )
@@ -31,30 +28,35 @@ class CarController extends BaseController
         parent::__construct($request, $response);
         $this->carValidation = $carValidation;
         $this->carService = $carService;
-        $this->imgValidation = $imgValidation;
         $this->uploadFileService = $uploadFileService;
         $this->carTransformer = $carTransformer;
     }
 
+    /**
+     * @return Response
+     */
     public function addCar(): Response
     {
+        $errors = [];
         if ($this->request->isPost()) {
             $params = $this->getParams();
-            $this->validateFormData($params);
-            $result = $this->uploadFileService->upLoadFile($this->getImg());
-            if (isset($result['img-error'])) {
-                return $this->response->view('addCarForm', $result);
-            } else {
-                $params = array_merge($params, ["img" => $result]);
-                var_dump($params['img']);
+            $errors = $this->validateFormData($params);
+            if (empty($errors)) {
+                $errors = $this->uploadFileService->upLoadFile($this->getImg());
+            }
+            if (is_string($errors)) {
+                $params = array_merge($params, ["img" => $errors]);
                 $this->carTransformer->toObject($params);
                 $this->carService->createCar($this->carTransformer);
+                return $this->backHome();
             }
-            return $this->backHome();
         }
-        return $this->response->view('addCarForm');
+        return $this->response->view('addCarForm', $errors);
     }
 
+    /**
+     * @return array
+     */
     public function getParams(): array
     {
         $params = $this->request->getFormParams();
@@ -62,25 +64,31 @@ class CarController extends BaseController
         return array_merge($params, ["img" => $carImg['name']]);
     }
 
-    public function getImg()
+    /**
+     * @return array
+     */
+    public function getImg(): array
     {
         return $this->request->getFiles()['img'];
     }
 
-    public function validateFormData($params): Response
+    /**
+     * @param $params
+     * @return array
+     */
+    public function validateFormData($params): array
     {
         $errors = [];
         $this->carValidation->loadData($params);
         if (!$this->carValidation->validate()) {
             $errors = $this->carValidation->getErrors();
         }
-        $imgValidate = $this->imgValidation->validate($this->getImg(), 322);
-        if ($imgValidate) {
-            $errors =  array_merge($errors,  $imgValidate);
-        }
-        return $this->response->view('addCarForm',$errors);
+        return $errors;
     }
 
+    /**
+     * @return Response
+     */
     public function backHome(): Response
     {
         $carList = $this->carService->listCar();

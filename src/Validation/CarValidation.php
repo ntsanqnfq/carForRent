@@ -11,7 +11,6 @@ class CarValidation extends AbstractValidation
     public string $color = '';
     public string $brand = '';
     public string $price = '';
-    public string $img = '';
 
     public function rules(): array
     {
@@ -21,7 +20,6 @@ class CarValidation extends AbstractValidation
             'color' => [self::RULE_REQUIRED],
             'brand' => [self::RULE_REQUIRED],
             'price' => [self::RULE_REQUIRED],
-            'img' => [self::RULE_REQUIRED],
         ];
     }
 

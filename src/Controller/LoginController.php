@@ -14,18 +14,21 @@ class LoginController extends BaseController
     private LoginService $loginService;
     private UserRequestValidation $userRequestValidation;
     private SessionService $sessionService;
+    private UserTransformer $userTransformer;
 
     public function __construct(Request               $request,
                                 Response              $response,
                                 LoginService          $loginService,
                                 UserRequestValidation $userRequestValidation,
-                                SessionService        $sessionService
+                                SessionService        $sessionService,
+                                UserTransformer       $userTransformer
     )
     {
         parent::__construct($request, $response);
         $this->loginService = $loginService;
         $this->userRequestValidation = $userRequestValidation;
         $this->sessionService = $sessionService;
+        $this->userTransformer = $userTransformer;
     }
 
     /**
@@ -39,13 +42,18 @@ class LoginController extends BaseController
     public function handleLogin(): Response
     {
         $params = $this->request->getFormParams();
-        $userTransfer = new UserTransformer();
-        $userTransfer->toObject($params);
+        $userTransfer = $this->userTransformer->toObject($params);
         $validate = $this->userRequestValidation->validate($userTransfer);
         if ($validate) {
             return $this->reRenderViewLogin($validate);
         }
         $user = $this->loginService->checkExist($userTransfer);
+        $this->checkUser($user);
+        return $this->response->redirect('/');
+    }
+
+    public function checkUser($user)
+    {
         if ($user == null) {
             $validate = [
                 'username' => 'user or password is incorrect',
@@ -53,8 +61,8 @@ class LoginController extends BaseController
             ];
             return $this->reRenderViewLogin($validate);
         }
-        return $this->response->redirect('/');
     }
+
 
     /**
      * @return Response
