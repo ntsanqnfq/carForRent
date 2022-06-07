@@ -3,15 +3,16 @@
 namespace Sang\CarForRent\Transformer;
 
 
+use Dotenv\Exception\ValidationException;
+
 class CarTransformer implements TransformerInterface
 {
-
     private ?string $name;
     private string $description;
     private ?string $img;
     private ?string $color;
     private ?string $brand;
-    private ?int $price;
+    private ?int $price =0;
 
     /**
      * @param array $params
@@ -25,7 +26,7 @@ class CarTransformer implements TransformerInterface
         $this->color = $params['color'] ?? null;
         $this->brand = $params['brand'] ?? null;
         $this->price = $params['price'] ?? null;
-        return $this;
+        var_dump($this);die;
     }
 
     /**

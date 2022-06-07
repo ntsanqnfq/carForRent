@@ -10,9 +10,10 @@
     }
 </style>
 
-
+<?php
+//var_dump($data['errors']);die;
+?>
 <span class="invalid-feedback">
-<?php var_dump($data); die;?>
 </span>
 <div style="padding-left: 100px; padding-right: 100px;" class="form">
     <h1>Insert car</h1>

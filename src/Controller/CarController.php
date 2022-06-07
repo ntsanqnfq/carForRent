@@ -40,13 +40,13 @@ class CarController extends BaseController
     {
         if ($this->request->isPost()) {
             $params = $this->getParams();
+            var_dump($params);die;
             $this->validateFormData($params);
             $result = $this->uploadFileService->upLoadFile($this->getImg());
-            if (isset($result['img-error'])) {
-                return $this->response->view('addCarForm', $result);
+            if (isset($result['img'])) {
+                return $this->response->view('addCarForm', ['errors' => $result]);
             } else {
                 $params = array_merge($params, ["img" => $result]);
-                var_dump($params['img']);
                 $this->carTransformer->toObject($params);
                 $this->carService->createCar($this->carTransformer);
             }
@@ -76,9 +76,9 @@ class CarController extends BaseController
         }
         $imgValidate = $this->imgValidation->validate($this->getImg(), 322);
         if ($imgValidate) {
-            $errors =  array_merge($errors,  $imgValidate);
+            $errors = array_merge($errors, $imgValidate);
         }
-        return $this->response->view('addCarForm',$errors);
+        return $this->response->view('addCarForm', ['errors' => $errors]);
     }
 
     public function backHome(): Response
