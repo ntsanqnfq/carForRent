@@ -22,19 +22,25 @@ class Route
      * @var string
      */
     protected string $actionName;
+    /**
+     * @var string
+     */
+    protected string $role;
 
     /**
      * @param string $method
      * @param string $uri
      * @param string $controllerClassName
      * @param string $actionName
+     * @param string $role
      */
-    public function __construct(string $method, string $uri, string $controllerClassName, string $actionName)
+    public function __construct(string $method, string $uri, string $controllerClassName, string $actionName, string $role)
     {
         $this->setMethod($method);
         $this->setUri($uri);
         $this->setControllerClassName($controllerClassName);
         $this->setActionName($actionName);
+        $this->setRole($role);
     }
 
 
@@ -42,44 +48,48 @@ class Route
      * @param string $uri
      * @param string $controllerClassName
      * @param string $actionName
+     * @param string $role
      * @return Route
      */
-    public static function post(string $uri, string $controllerClassName, string $actionName): Route
+    public static function post(string $uri, string $controllerClassName, string $actionName, string $role): Route
     {
-        return new static(Request::METHOD_POST, $uri, $controllerClassName, $actionName);
+        return new static(Request::METHOD_POST, $uri, $controllerClassName, $actionName, $role);
     }
 
     /**
      * @param string $uri
      * @param string $controllerClassName
      * @param string $actionName
+     * @param string $role
      * @return Route
      */
-    public static function get(string $uri, string $controllerClassName, string $actionName): Route
+    public static function get(string $uri, string $controllerClassName, string $actionName, string $role): Route
     {
-        return new static(Request::METHOD_GET, $uri, $controllerClassName, $actionName);
+        return new static(Request::METHOD_GET, $uri, $controllerClassName, $actionName, $role);
     }
 
     /**
      * @param string $uri
      * @param string $controllerClassName
      * @param string $actionName
+     * @param string $role
      * @return Route
      */
-    public static function put(string $uri, string $controllerClassName, string $actionName): Route
+    public static function put(string $uri, string $controllerClassName, string $actionName, string $role): Route
     {
-        return new static(Request::METHOD_PUT, $uri, $controllerClassName, $actionName);
+        return new static(Request::METHOD_PUT, $uri, $controllerClassName, $actionName, $role);
     }
 
     /**
      * @param string $uri
      * @param string $controllerClassName
      * @param string $actionName
+     * @param string $role
      * @return Route
      */
-    public static function delete(string $uri, string $controllerClassName, string $actionName): Route
+    public static function delete(string $uri, string $controllerClassName, string $actionName, string $role): Route
     {
-        return new static(Request::METHOD_DELETE, $uri, $controllerClassName, $actionName);
+        return new static(Request::METHOD_DELETE, $uri, $controllerClassName, $actionName, $role);
     }
 
     /**
@@ -155,4 +165,21 @@ class Route
     {
         $this->actionName = $actionName;
     }
+
+    /**
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
 }

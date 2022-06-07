@@ -10,6 +10,7 @@ use Sang\CarForRent\Http\Response;
 class Application
 {
     private Request $request;
+    private Container $container;
 
     /**
      * @param Request $request
@@ -17,6 +18,36 @@ class Application
     public function __construct(Request $request)
     {
         $this->request = $request;
+    }
+
+
+
+    /**
+     * @throws ReflectionException
+     */
+    public function start()
+    {
+        $this->container = new Container();
+
+        $controllerClassName = NotFoundController::class;
+        $actionName = NotFoundController::INDEX_ACTION;
+        $route = $this->getRoute();
+        if ($route) {
+            //acl
+            $acl = $this->container->make(Acl::class);
+            $acl->verify($route);
+
+            $controllerClassName = $route->getControllerClassName();
+            $actionName = $route->getActionName();
+        }
+        $controller = $this->container->make($controllerClassName);
+
+        /**
+         * @var Response $response
+         */
+        $response = $controller->{$actionName}();
+        $view = $this->container->make(View::class);
+        return $view->handle($response);
     }
 
     /**
@@ -34,28 +65,5 @@ class Application
             return $route;
         }
         return false;
-    }
-
-    /**
-     * @throws ReflectionException
-     */
-    public function start()
-    {
-        $controllerClassName = NotFoundController::class;
-        $actionName = NotFoundController::INDEX_ACTION;
-        $route = $this->getRoute();
-        if ($route) {
-            $controllerClassName = $route->getControllerClassName();
-            $actionName = $route->getActionName();
-        }
-        $container = new Container();
-        $controller = $container->make($controllerClassName);
-
-        /**
-         * @var Response $response
-         */
-        $response = $controller->{$actionName}();
-        $view = $container->make(View::class);
-        return $view->handle($response);
     }
 }

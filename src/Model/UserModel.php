@@ -4,10 +4,14 @@ namespace Sang\CarForRent\Model;
 
 class UserModel
 {
+    public const ROLE_USER = 'USER';
+    public const ROLE_ADMIN = 'ADMIN';
+
     private mixed $id;
     private mixed $userName;
     private mixed $password;
     private mixed $customerName;
+    private mixed $role;
 
     /**
      * @return mixed
@@ -72,4 +76,21 @@ class UserModel
     {
         $this->customerName = $customerName;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRole(): mixed
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole(mixed $role): void
+    {
+        $this->role = $role;
+    }
+
 }

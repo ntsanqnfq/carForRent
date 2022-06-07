@@ -73,4 +73,12 @@ class Request
         return $_FILES;
     }
 
+    /**
+     * @return mixed|null
+     */
+    public function getTokenHeader(): mixed
+    {
+        return $_SERVER['HTTP_AUTHORIZATION'] ?? null;
+    }
+
 }
