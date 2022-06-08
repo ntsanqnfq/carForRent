@@ -25,8 +25,7 @@ class RouteConf
             Route::get('/addcar', CarController::class, 'addCar',UserModel::ROLE_ADMIN),
             Route::post('/addcar', CarController::class, 'addCar',''),
 
-            #api0
-            Route::get('/api/cars', CarApiController::class, 'listCars',''),
+            #api
             Route::post('/api/login', LoginApiController::class, 'login',UserModel::ROLE_USER),
             Route::post('/api/addcar', AddCarApiController::class, 'addCar',UserModel::ROLE_ADMIN),
         ];

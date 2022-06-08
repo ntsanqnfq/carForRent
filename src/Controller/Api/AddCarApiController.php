@@ -9,6 +9,7 @@ use Sang\CarForRent\Service\CarService;
 use Sang\CarForRent\Service\UploadFileService;
 use Sang\CarForRent\Transformer\CarTransformer;
 use Sang\CarForRent\Validation\CarValidation;
+use Sang\CarForRent\Validation\ImageValidation;
 
 class AddCarApiController extends BaseController
 {
@@ -17,13 +18,15 @@ class AddCarApiController extends BaseController
     private CarService $carService;
     private UploadFileService $uploadFileService;
     private CarTransformer $carTransformer;
+    private ImageValidation $imageValidation;
 
     public function __construct(Request           $request,
                                 Response          $response,
                                 CarValidation     $carValidation,
                                 CarService        $carService,
                                 UploadFileService $uploadFileService,
-                                CarTransformer    $carTransformer
+                                CarTransformer    $carTransformer,
+                                ImageValidation   $imageValidation
     )
     {
         parent::__construct($request, $response);
@@ -31,6 +34,7 @@ class AddCarApiController extends BaseController
         $this->carService = $carService;
         $this->uploadFileService = $uploadFileService;
         $this->carTransformer = $carTransformer;
+        $this->imageValidation = $imageValidation;
     }
 
     public function addCar(): Response
@@ -38,14 +42,14 @@ class AddCarApiController extends BaseController
         $params = $this->getParams();
         $errors = $this->validateFormData($params);
         if (empty($errors)) {
-            $errors = $this->uploadFileService->upLoadFile($this->getImg());
+            $errors = $this->uploadFileService->handleUpload($this->getImg());
         }
         if (is_string($errors)) {
             $params = array_merge($params, ["img" => $errors]);
             $this->carTransformer->toObject($params);
             $this->carService->createCar($this->carTransformer);
             return $this->response->success([
-                'success'=>'completely add a car'
+                'success' => 'completely add a car'
             ]);
         }
         return $this->response->error($errors);
@@ -70,6 +74,7 @@ class AddCarApiController extends BaseController
         if (!$this->carValidation->validate()) {
             $errors = $this->carValidation->getErrors();
         }
-        return $errors;
+        $imgErrors = $this->imageValidation->check($this->getImg());
+        return array_merge($errors, $imgErrors);
     }
 }

@@ -27,28 +27,4 @@ class ApplicationTest extends TestCase
         $this->assertNotNull($result);
     }
 
-    /**
-     * @return string[][][]
-     */
-    public function routeProvider()
-    {
-        return [
-            'route_case'=>[
-                'param'=>[
-                    'method'=>'POST',
-                    'uri'=>'/',
-                    'controllerClassName'=>'Sang\CarForRent\Controller\HomeController',
-                    'actionName'=>'index',
-                    'role'=>''
-                ],
-                'expected'=>[
-                    'method'=>'POST',
-                    'uri'=>'/',
-                    'controllerClassName'=>'Sang\CarForRent\Controller\HomeController',
-                    'actionName'=>'index',
-                    'role'=>''
-                ]
-            ]
-        ];
-    }
 }
