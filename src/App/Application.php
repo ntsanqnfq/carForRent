@@ -20,8 +20,6 @@ class Application
         $this->request = $request;
     }
 
-
-
     /**
      * @throws ReflectionException
      */

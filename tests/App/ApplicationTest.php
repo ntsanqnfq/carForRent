@@ -5,6 +5,7 @@ namespace Sang\tests\App;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use Sang\CarForRent\App\Application;
+use Sang\CarForRent\Http\Request;
 
 class ApplicationTest extends TestCase
 {
@@ -20,9 +21,34 @@ class ApplicationTest extends TestCase
         $_POST['userName'] = 'ntsanq';
         $_POST['password'] = '123';
 
-
-        $result = new Application();
+        $request = new Request();
+        $result = new Application($request);
         $result->start();
         $this->assertNotNull($result);
+    }
+
+    /**
+     * @return string[][][]
+     */
+    public function routeProvider()
+    {
+        return [
+            'route_case'=>[
+                'param'=>[
+                    'method'=>'POST',
+                    'uri'=>'/',
+                    'controllerClassName'=>'Sang\CarForRent\Controller\HomeController',
+                    'actionName'=>'index',
+                    'role'=>''
+                ],
+                'expected'=>[
+                    'method'=>'POST',
+                    'uri'=>'/',
+                    'controllerClassName'=>'Sang\CarForRent\Controller\HomeController',
+                    'actionName'=>'index',
+                    'role'=>''
+                ]
+            ]
+        ];
     }
 }

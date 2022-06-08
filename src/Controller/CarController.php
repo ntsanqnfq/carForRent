@@ -8,6 +8,7 @@ use Sang\CarForRent\Service\CarService;
 use Sang\CarForRent\Service\UploadFileService;
 use Sang\CarForRent\Transformer\CarTransformer;
 use Sang\CarForRent\Validation\CarValidation;
+use Sang\CarForRent\Validation\ImageValidation;
 
 class CarController extends BaseController
 {
@@ -16,6 +17,7 @@ class CarController extends BaseController
     private CarService $carService;
     private UploadFileService $uploadFileService;
     private CarTransformer $carTransformer;
+    private ImageValidation $imageValidation;
 
     public function __construct(Request           $request,
                                 Response          $response,
@@ -23,6 +25,7 @@ class CarController extends BaseController
                                 CarService        $carService,
                                 UploadFileService $uploadFileService,
                                 CarTransformer    $carTransformer,
+                                ImageValidation   $imageValidation
     )
     {
         parent::__construct($request, $response);
@@ -30,6 +33,7 @@ class CarController extends BaseController
         $this->carService = $carService;
         $this->uploadFileService = $uploadFileService;
         $this->carTransformer = $carTransformer;
+        $this->imageValidation = $imageValidation;
     }
 
     /**
@@ -42,7 +46,7 @@ class CarController extends BaseController
             $params = $this->getParams();
             $errors = $this->validateFormData($params);
             if (empty($errors)) {
-                $errors = $this->uploadFileService->upLoadFile($this->getImg());
+                $errors = $this->uploadFileService->handleUpload($this->getImg());
             }
             if (is_string($errors)) {
                 $params = array_merge($params, ["img" => $errors]);
@@ -83,7 +87,8 @@ class CarController extends BaseController
         if (!$this->carValidation->validate()) {
             $errors = $this->carValidation->getErrors();
         }
-        return $errors;
+        $imgErrors = $this->imageValidation->check($this->getImg());
+        return array_merge($errors, $imgErrors);
     }
 
     /**

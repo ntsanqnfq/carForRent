@@ -28,5 +28,7 @@ $ sudo apt-get install php-xdebug
 $ ./vendor/bin/phpunit --generate-configuration  
 ```
 
-API
-composer require firebase/php-jwt
+## API
+```sh  
+$ composer require firebase/php-jwt
+```

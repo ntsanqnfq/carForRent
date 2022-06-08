@@ -2,6 +2,7 @@
 
 namespace Sang\CarForRent\Service;
 
+use Dotenv\Dotenv;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Sang\CarForRent\Exception\AuthenticationException;
@@ -11,10 +12,12 @@ use Sang\CarForRent\Model\UserModel;
 
 class TokenService
 {
-    protected string $secret = 'this token is secret';
+    protected static $dotenv;
 
     public function generate(UserModel $user): string
     {
+        $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+        self::$dotenv = $dotenv->load();
         $userId = $user->getId();
         $iat = time();
         $token = new Token();
@@ -23,12 +26,12 @@ class TokenService
             'sub' => $userId,
             'iat' => $iat
         ];
-        return JWT::encode($payload, $this->secret, 'HS256');
+        return JWT::encode($payload, $_ENV['SECRET_TOKEN_KEY'], 'HS256');
     }
 
     public function checkToken($token): array
     {
-        $decoded = JWT::decode($token, new Key($this->secret, 'HS256'));
+        $decoded = JWT::decode($token, new Key($_ENV['SECRET_TOKEN_KEY'], 'HS256'));
         return (array)$decoded;
     }
 
